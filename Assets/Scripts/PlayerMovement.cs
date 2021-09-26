@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if(invincibleTimer <= 0)
 		{
-			if (other.tag.Equals("Hazards"))
+			if (other.CompareTag("Hazards"))
 			{
 				GameManager.HazardHit();
 
@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 				float rand_x = Random.Range(GameManager.gameSpeed / 2, -GameManager.gameSpeed / 2);
 				rb.velocity = new Vector3(rand_x, 2.5f, -GameManager.gameSpeed / 2f);
 			}
-			else if (other.tag.Equals("Coins"))
+			else if (other.CompareTag("Coins"))
 			{
 				GameManager.addCoin();
 				Destroy(other.gameObject);
