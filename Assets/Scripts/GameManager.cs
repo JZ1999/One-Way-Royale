@@ -55,6 +55,10 @@ public class GameManager : MonoBehaviour
 
 	static public bool dead = false;
 
+	public GameObject[] models;
+	public GameObject defaultChar;
+	public PlayerMovement thePlayer;
+
 	#endregion
 
 	#region Unity Methods    
@@ -87,6 +91,16 @@ public class GameManager : MonoBehaviour
 
 		targetSpeedMultiplier = speedMultiplier;
 		_distanceText.text = distanceCovered + "m";
+
+		for(int i = 0; i < models.Length; i++)
+		{
+			if(models[i].name == PlayerPrefs.GetString("SelectedChar"))
+			{
+				GameObject clone = Instantiate(models[i], thePlayer.modelHolder.transform);
+				Destroy(clone.GetComponent<Rigidbody>());
+				defaultChar.SetActive(false);
+			}
+		}
     }
 
     void Update()

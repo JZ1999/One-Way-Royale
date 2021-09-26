@@ -212,7 +212,9 @@ MonoBehaviour:
   switchPlayButton: {fileID: 1322529751}
   switchUnlockButton: {fileID: 1602257305}
   switchGetCoinsButton: {fileID: 1741277415}
+  charLockedImage: {fileID: 76809295}
   coinsCollected: 0
+  coinsText: {fileID: 423373590}
 --- !u!114 &68137929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +309,7 @@ GameObject:
   - component: {fileID: 76809298}
   - component: {fileID: 76809297}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Blocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1898,7 +1900,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 68137928}
-        m_MethodName: PlayGame
+        m_MethodName: SelectChar
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2383,7 +2385,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 68137928}
-        m_MethodName: PlayGame
+        m_MethodName: UnlockCharacter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
