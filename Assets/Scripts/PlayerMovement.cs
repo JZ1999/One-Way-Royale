@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if(invincibleTimer <= 0)
 		{
-			if (other.tag.Equals("Hazards"))
+			if (other.CompareTag("Hazards"))
 			{
 				GameManager.HazardHit();
 
@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
 				theAM.sfxHit.Play();
 			}
-			else if (other.tag.Equals("Coins"))
+			else if (other.CompareTag("Coins"))
 			{
 				GameManager.addCoin();
 				Destroy(other.gameObject);
