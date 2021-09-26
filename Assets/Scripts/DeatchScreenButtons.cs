@@ -10,11 +10,13 @@ public class DeatchScreenButtons : MonoBehaviour
 	public GameObject PauseScreen;
 
 	public PlayerMovement player;
-    #endregion
+	public AudioManager theAM;
 
-    #region Unity Methods    
+	#endregion
 
-    void Start()
+	#region Unity Methods    
+
+	void Start()
     {
         
     }
@@ -37,6 +39,8 @@ public class DeatchScreenButtons : MonoBehaviour
 			GameManager._canMove = true;
 
 			player.ResetPlayer();
+			theAM.StopMusic();
+			theAM.gameMusic.Play();
 		}
 		else
 		{
