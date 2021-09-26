@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class MainMenu : MonoBehaviour
 	public GameObject charLockedImage;
 
 	public int coinsCollected;
+
+	public Text coinsText;
     #endregion
 
     #region Unity Methods    
@@ -49,7 +52,22 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
 		camera.position = Vector3.Lerp(camera.position, camTarPosition, cameraSpeed * Time.deltaTime);
-    }
+
+		coinsText.text = "Coins: " + coinsCollected;
+
+#if UNITY_EDITOR
+
+		if(Input.GetKeyDown(KeyCode.L))
+		{
+			for(int i = 1; i < theChars.Length; i++)
+			{
+				PlayerPrefs.SetInt(theChars[i].name, 0);
+			}
+
+			UnlockedCheck();
+		}
+#endif
+	}
 
     #endregion
 
@@ -126,6 +144,23 @@ public class MainMenu : MonoBehaviour
 
 			UnlockedCheck();
 		}
+	}
+
+	public void UnlockCharacter()
+	{
+		coinsCollected -= 500;
+
+		PlayerPrefs.SetInt(theChars[currentChar].name, 1);
+		PlayerPrefs.SetInt("CoinsCollected", coinsCollected);
+
+		UnlockedCheck();
+	}
+
+	public void SelectChar()
+	{
+		PlayerPrefs.SetString("SelectedChar", theChars[currentChar].name);
+
+		PlayGame();
 	}
 }
 
