@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
 
 	public float invincibleTime;
 	private float invincibleTimer;
+
+	public AudioManager theAM;
+	public GameObject coinEffect;
 	#endregion
 
 	#region Unity Methods    
@@ -35,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 			if (Input.GetMouseButtonDown(0))
 			{
 				rb.velocity = new Vector3(0, jumpForce, 0);
+				theAM.sfxJump.Play();
 			}
 		}
 
@@ -60,11 +64,15 @@ public class PlayerMovement : MonoBehaviour
 
 				float rand_x = Random.Range(GameManager.gameSpeed / 2, -GameManager.gameSpeed / 2);
 				rb.velocity = new Vector3(rand_x, 2.5f, -GameManager.gameSpeed / 2f);
+
+				theAM.sfxHit.Play();
 			}
 			else if (other.tag.Equals("Coins"))
 			{
 				GameManager.addCoin();
 				Destroy(other.gameObject);
+				theAM.sfxCoin.Play();
+				Instantiate(coinEffect, gameObject.transform.position, gameObject.transform.rotation);
 			}
 		}
 			

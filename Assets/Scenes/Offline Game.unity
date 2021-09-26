@@ -2855,6 +2855,7 @@ MonoBehaviour:
   GameOverScreen: {fileID: 1563312297}
   PauseScreen: {fileID: 881170563}
   player: {fileID: 850285895}
+  theAM: {fileID: 993408730}
 --- !u!1001 &283535674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7143,7 +7144,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.2644e-41, y: 1.05e-43, z: 7.5e-43, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 9.1835e-41, w: 2.0387483e-38}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -8798,6 +8799,9 @@ MonoBehaviour:
     m_Bits: 256
   anim: {fileID: 850285896}
   invincibleTime: 2
+  theAM: {fileID: 993408730}
+  coinEffect: {fileID: 6226976485671538798, guid: 152b279083d23f94ea885faea4e42920,
+    type: 3}
 --- !u!95 &850285896
 Animator:
   serializedVersion: 3

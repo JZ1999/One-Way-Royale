@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
 	public GameObject defaultChar;
 	public PlayerMovement thePlayer;
 
+	static public AudioManager theAM;
 	#endregion
 
 	#region Unity Methods    
@@ -66,6 +67,8 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		ResetVariables();
+
+		theAM = FindObjectOfType<AudioManager>();
 
 		_coinsText = coinsText;
 		_distanceText = distanceText;
@@ -104,7 +107,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Update()
-    {
+    {	
 		_canMove = canMove;
 		_gameSpeed = gameSpeed;
 
@@ -142,8 +145,7 @@ public class GameManager : MonoBehaviour
 		collectedCoin = false;
 
 		if (dead)
-		{
-			
+		{			
 			if (deathScreenDelay <= 0)
 			{
 				deathScreen.SetActive(true);
@@ -182,6 +184,9 @@ public class GameManager : MonoBehaviour
 
 		_deathScreenCoins.text = coinsCollect + " coins!";
 		_deathScreenDistance.text = Mathf.Floor(distanceCovered) + "m";
+
+		theAM.StopMusic();
+		theAM.gameOverMusic.Play();
 	}
 
 	static public void addCoin()
