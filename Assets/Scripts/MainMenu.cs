@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class MainMenu : MonoBehaviour
 {
@@ -25,11 +26,15 @@ public class MainMenu : MonoBehaviour
 	public int coinsCollected;
 
 	public Text coinsText;
-    #endregion
 
-    #region Unity Methods    
+	public GameObject adRewardPanel;
+	public Text rewardText;
+	private readonly string videoAdZone;
+	#endregion
 
-    void Start()
+	#region Unity Methods    
+
+	void Start()
     {
 		camTarPosition = camera.position;
 
@@ -161,6 +166,60 @@ public class MainMenu : MonoBehaviour
 		PlayerPrefs.SetString("SelectedChar", theChars[currentChar].name);
 
 		PlayGame();
+	}
+
+	public void GetCoins()
+	{
+		ShowRewardedVideo();
+	}
+
+	public bool IsVideoAdLoaded()
+	{
+		return Advertisement.isInitialized && Advertisement.IsReady(videoAdZone);
+	}
+
+	void ShowRewardedVideo()
+	{
+		if(IsVideoAdLoaded())
+		{
+			ShowOptions options = new ShowOptions();
+			options.resultCallback = HandleShowResult;
+
+			Advertisement.Show(videoAdZone, options);
+		}
+		else
+		{
+			Debug.LogWarning("Ad video not loaded yet.");
+		}
+	}
+
+	void HandleShowResult(ShowResult result)
+	{
+		if (result == ShowResult.Finished)
+		{
+			Debug.Log("Video completed - Offer a reward to the player");
+			// Reward your player here.
+			coinsCollected += 100;
+			PlayerPrefs.SetInt("CoinsCollected", coinsCollected);
+			rewardText.text = "Thanks for watching. You receive 100 coins!";
+		}
+		else if (result == ShowResult.Skipped)
+		{
+			Debug.LogWarning("Video was skipped - Do NOT reward the player");
+			rewardText.text = "You didn't watch the ad. Watch another to earn coins";
+		}
+		else if (result == ShowResult.Failed)
+		{
+			Debug.LogError("Video failed to show");
+			rewardText.text = "Unable to show ad. Please try again.";
+		}
+
+		adRewardPanel.SetActive(true);
+	}
+
+	public void CloseAdPanel()
+	{
+		adRewardPanel.SetActive(false);
 	}
 }
 
