@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
 
 	public AudioManager theAM;
 	public GameObject coinEffect;
+
+	public UIVarManager BarOnlineManager;
 	#endregion
 
 	#region Unity Methods    
@@ -32,7 +34,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 		onGround = Physics.OverlapSphere(modelHolder.position, 0.2f, whatIsGround).Length > 0;
-
+		if (Input.GetMouseButtonDown(1))
+		{
+			BarOnlineManager.UsedPowerUp(1);
+		}
 		if (GameManager.canMove && onGround)
 		{
 			if (Input.GetMouseButtonDown(0))
@@ -70,6 +75,10 @@ public class PlayerMovement : MonoBehaviour
 			else if (other.CompareTag("Coins"))
 			{
 				GameManager.addCoin();
+                if (BarOnlineManager)
+                {
+					BarOnlineManager.FillBar(0.2f);
+                }
 				Destroy(other.gameObject);
 				theAM.sfxCoin.Play();
 				Instantiate(coinEffect, gameObject.transform.position, gameObject.transform.rotation);
