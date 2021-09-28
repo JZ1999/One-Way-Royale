@@ -3271,6 +3271,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4572628624309770864, guid: adc1b8377a88dcc4d8a3fc6a35b301ca,
         type: 3}
+      propertyPath: panel
+      value: 
+      objectReference: {fileID: 2065695713}
+    - target: {fileID: 4572628624309770864, guid: adc1b8377a88dcc4d8a3fc6a35b301ca,
+        type: 3}
       propertyPath: nameField
       value: 
       objectReference: {fileID: 1926555740}
