@@ -145,7 +145,8 @@ public class GameManager : MonoBehaviour
 		collectedCoin = false;
 
 		if (dead)
-		{			
+		{
+			
 			if (deathScreenDelay <= 0)
 			{
 				deathScreen.SetActive(true);
@@ -179,7 +180,9 @@ public class GameManager : MonoBehaviour
 		_canMove = false;
 		canMove = false;
 		dead = true;
-
+		
+		
+		PlayerPrefs.SetString("distance", Mathf.Floor(distanceCovered) + "");
 		PlayerPrefs.SetInt("CoinsCollected", coinsCollect);
 
 		_deathScreenCoins.text = coinsCollect + " coins!";

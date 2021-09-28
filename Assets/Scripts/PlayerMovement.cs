@@ -17,21 +17,46 @@ public class PlayerMovement : MonoBehaviour
 	public float invincibleTime;
 	private float invincibleTimer;
 
+
+	//Api Script
+	public ApiService api = new ApiService();
+
 	public AudioManager theAM;
 	public GameObject coinEffect;
+
+	public UIBarManager BarOnlineManager;
 	#endregion
 
+	public float timeForUsePowerUpSaved;
+	private float timeForUsePowerUp;
 	#region Unity Methods    
 
 	void Start()
     {
 		startPosition = transform.position;
 		startRotation = transform.rotation;
+		timeForUsePowerUp = timeForUsePowerUpSaved;
     }
 
     void Update()
     {
 		onGround = Physics.OverlapSphere(modelHolder.position, 0.2f, whatIsGround).Length > 0;
+
+#if UNITY_EDITOR
+		if (Input.GetMouseButton(1))
+		{
+			timeForUsePowerUp -= Time.deltaTime;
+			if(timeForUsePowerUp <= 0)
+			{
+				bool canUsePower = BarOnlineManager.UsedPowerUp(1);
+				timeForUsePowerUp = timeForUsePowerUpSaved;
+			}
+        }
+        else
+        {
+			timeForUsePowerUp = timeForUsePowerUpSaved;
+		}
+#endif
 
 		if (GameManager.canMove && onGround)
 		{
@@ -56,9 +81,11 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if(invincibleTimer <= 0)
 		{
-			if (other.tag.Equals("Hazards"))
+			if (other.CompareTag("Hazards"))
 			{
 				GameManager.HazardHit();
+
+				api.RegisterScore();
 
 				rb.constraints = RigidbodyConstraints.None;
 
@@ -67,9 +94,13 @@ public class PlayerMovement : MonoBehaviour
 
 				theAM.sfxHit.Play();
 			}
-			else if (other.tag.Equals("Coins"))
+			else if (other.CompareTag("Coins"))
 			{
 				GameManager.addCoin();
+                if (BarOnlineManager)
+                {
+					BarOnlineManager.FillBar(0.2f);
+                }
 				Destroy(other.gameObject);
 				theAM.sfxCoin.Play();
 				Instantiate(coinEffect, gameObject.transform.position, gameObject.transform.rotation);
