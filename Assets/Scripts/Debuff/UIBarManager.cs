@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIVarManager : MonoBehaviour
+public class UIBarManager : MonoBehaviour
 {
 
     public Image uiBarBackground;

@@ -20,24 +20,40 @@ public class PlayerMovement : MonoBehaviour
 	public AudioManager theAM;
 	public GameObject coinEffect;
 
-	public UIVarManager BarOnlineManager;
+	public UIBarManager BarOnlineManager;
 	#endregion
 
+	public float timeForUsePowerUpSaved;
+	private float timeForUsePowerUp;
 	#region Unity Methods    
 
 	void Start()
     {
 		startPosition = transform.position;
 		startRotation = transform.rotation;
+		timeForUsePowerUp = timeForUsePowerUpSaved;
     }
 
     void Update()
     {
 		onGround = Physics.OverlapSphere(modelHolder.position, 0.2f, whatIsGround).Length > 0;
-		if (Input.GetMouseButtonDown(1))
+
+#if UNITY_EDITOR
+		if (Input.GetMouseButton(1))
 		{
-			BarOnlineManager.UsedPowerUp(1);
+			timeForUsePowerUp -= Time.deltaTime;
+			if(timeForUsePowerUp <= 0)
+			{
+				bool canUsePower = BarOnlineManager.UsedPowerUp(1);
+				timeForUsePowerUp = timeForUsePowerUpSaved;
+			}
+        }
+        else
+        {
+			timeForUsePowerUp = timeForUsePowerUpSaved;
 		}
+#endif
+
 		if (GameManager.canMove && onGround)
 		{
 			if (Input.GetMouseButtonDown(0))
