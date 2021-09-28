@@ -17,6 +17,10 @@ public class PlayerMovement : MonoBehaviour
 	public float invincibleTime;
 	private float invincibleTimer;
 
+
+	//Api Script
+	public ApiService api = new ApiService();
+
 	public AudioManager theAM;
 	public GameObject coinEffect;
 
@@ -80,6 +84,8 @@ public class PlayerMovement : MonoBehaviour
 			if (other.CompareTag("Hazards"))
 			{
 				GameManager.HazardHit();
+
+				api.RegisterScore();
 
 				rb.constraints = RigidbodyConstraints.None;
 

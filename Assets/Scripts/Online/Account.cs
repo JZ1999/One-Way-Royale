@@ -22,7 +22,9 @@ public class Account : MonoBehaviour
 
         Guid g = Guid.NewGuid();
         guid = Guid.NewGuid().ToString();
-        if(!PlayerPrefs.HasKey("uuid"))
+        if (PlayerPrefs.HasKey("name"))
+            panel.SetActive(false);
+        if (!PlayerPrefs.HasKey("uuid"))
             PlayerPrefs.SetString("uuid", guid);
     }
 

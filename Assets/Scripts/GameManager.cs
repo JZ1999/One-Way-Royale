@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour
 		dead = true;
 		
 		
-		PlayerPrefs.SetString("distance", _deathScreenDistance.ToString());
+		PlayerPrefs.SetString("distance", Mathf.Floor(distanceCovered) + "");
 		PlayerPrefs.SetInt("CoinsCollected", coinsCollect);
 
 		_deathScreenCoins.text = coinsCollect + " coins!";
