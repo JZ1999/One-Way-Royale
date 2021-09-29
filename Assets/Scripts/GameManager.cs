@@ -42,6 +42,10 @@ public class GameManager : MonoBehaviour
 
 	static private float distanceCovered;
 
+	//player online
+	public GameObject[] _playersOnline;
+	static public GameObject[] playersOnline;
+
 	//Death screen variables
 	public GameObject deathScreen;
 	static public GameObject _deathScreen;
@@ -69,7 +73,7 @@ public class GameManager : MonoBehaviour
 		ResetVariables();
 
 		theAM = FindObjectOfType<AudioManager>();
-
+		playersOnline = _playersOnline;
 		_coinsText = coinsText;
 		_distanceText = distanceText;
 		_canMove = canMove;
@@ -192,7 +196,7 @@ public class GameManager : MonoBehaviour
 		theAM.gameOverMusic.Play();
 	}
 
-	static public void addCoin()
+	static public void AddCoin()
 	{
 		if (!collectedCoin)
 		{
@@ -202,4 +206,19 @@ public class GameManager : MonoBehaviour
 			_coinsText.text = "Coins: " + coinsCollect;
 		}
 	}
+
+	static public void ApplyDebuff(string nameDebuff) {
+		if(nameDebuff != "none")
+		{
+			int index = Random.Range(0, playersOnline.Length);
+			GameObject focusPlayer = playersOnline[index];
+			FindObjectOfType<GameManager>().RecievedDebuff(nameDebuff);
+			//focusPlayer.GetComponent<GameManager>().RecievedDebuff(nameDebuff);
+        }		
+	}
+
+	public void RecievedDebuff(string nameDebuff)
+    {
+		Debug.Log(nameDebuff);
+    }
 }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: MudDebuff
+  m_Name: ObjectDebuff
   m_EditorClassIdentifier: Assembly-CSharp::DebuffData
-  nameDebuff: Mud
-  description: Put mud in the enemy
-  costOfAplication: 1
+  nameDebuff: Object
+  description: Add a object extra
+  costOfAplication: 3
   playersEffected: 1
-  logo: {fileID: 21300000, guid: 694aa9d8c1bd8ca48ab3e542b78b81e4, type: 3}
+  logo: {fileID: 21300000, guid: ab84af0ea30940e408335f9322e0ff34, type: 3}

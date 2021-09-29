@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 	#endregion
 
 	public float timeForUsePowerUpSaved;
-	private float timeForUsePowerUp;
+	public float timeForUsePowerUp;
 	#region Unity Methods    
 
 	void Start()
@@ -48,7 +48,8 @@ public class PlayerMovement : MonoBehaviour
 			timeForUsePowerUp -= Time.deltaTime;
 			if(timeForUsePowerUp <= 0)
 			{
-				bool canUsePower = BarOnlineManager.UsedPowerUp(1);
+				string Power = BarOnlineManager.UsedPowerUp();
+				GameManager.ApplyDebuff(Power);
 				timeForUsePowerUp = timeForUsePowerUpSaved;
 			}
         }
@@ -85,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				GameManager.HazardHit();
 
-				api.RegisterScore();
+				//api.RegisterScore();
 
 				rb.constraints = RigidbodyConstraints.None;
 
@@ -96,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
 			}
 			else if (other.CompareTag("Coins"))
 			{
-				GameManager.addCoin();
+				GameManager.AddCoin();
                 if (BarOnlineManager)
                 {
 					BarOnlineManager.FillBar(0.2f);

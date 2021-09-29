@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: MudDebuff
+  m_Name: CoinsDebuff
   m_EditorClassIdentifier: Assembly-CSharp::DebuffData
-  nameDebuff: Mud
-  description: Put mud in the enemy
-  costOfAplication: 1
+  nameDebuff: Coins
+  description: The coins will move randomly
+  costOfAplication: 2
   playersEffected: 1
-  logo: {fileID: 21300000, guid: 694aa9d8c1bd8ca48ab3e542b78b81e4, type: 3}
+  logo: {fileID: 21300000, guid: 532c25f36704fb24d8d3ca62a80d7405, type: 3}
