@@ -8,13 +8,18 @@ public class UIBarManager : MonoBehaviour
 
     public Image uiBarBackground;
     public Image uiBarFront;
+    public Image uiIconDebuff;
+    public Sprite _uiIconDebuffSprite;
     public int tierBar = 0;
     public int tierDebuff = -1;
     public Color[] color;
     public DebuffData[] debuffs; 
+
     // Start is called before the first frame update
     void Start()
     {
+        _uiIconDebuffSprite = uiIconDebuff.sprite;
+        Debug.Log(uiIconDebuff.sprite.ToString());
         uiBarFront.fillAmount = 0f;
         uiBarBackground.fillAmount = 1;
         ChangeColorPairs();
@@ -32,6 +37,7 @@ public class UIBarManager : MonoBehaviour
         if(uiBarFront.fillAmount >= 1)
         {
             tierDebuff += 1;
+            uiIconDebuff.sprite = debuffs[tierDebuff].logo;
             if (color.Length > tierBar)
                 FilledBar();
         }
@@ -59,6 +65,7 @@ public class UIBarManager : MonoBehaviour
             nameDebuff = debuffs[tierDebuff].nameDebuff;
             tierBar = 0;
             tierDebuff = -1;
+            uiIconDebuff.sprite = _uiIconDebuffSprite;
             ChangeColorPairs();
         }
         return nameDebuff;

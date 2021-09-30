@@ -8958,11 +8958,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiBarBackground: {fileID: 1047000420}
   uiBarFront: {fileID: 715434825}
+  uiIconDebuff: {fileID: 55416265}
+  _uiIconDebuffSprite: {fileID: 0}
   tierBar: 0
+  tierDebuff: -1
   color:
   - {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
   - {r: 1, g: 0.25, b: 0.25, a: 0}
   - {r: 0, g: 0.19427729, b: 1, a: 0}
+  - {r: 0.29063702, g: 0, b: 1, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
   debuffs:
   - {fileID: 11400000, guid: 6e27b3d5f408bc148be02746f34956ef, type: 2}
   - {fileID: 11400000, guid: e960dfa6ed71dec4f9c1f4e84da46fd7, type: 2}
