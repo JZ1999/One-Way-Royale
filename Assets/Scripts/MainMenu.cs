@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
 	public GameObject mainScreen;
 	public GameObject switchingScreen;
 	public Transform camera;
+	[SerializeField]
 	public Transform charSwitchHolder;
 	private Vector3 camTarPosition;
 	public float cameraSpeed;
@@ -79,6 +80,14 @@ public class MainMenu : MonoBehaviour
 	public void PlayGame()
 	{
 		SceneManager.LoadScene(levelToLoad);
+	}
+	public void MainScreen()
+    {
+		mainScreen.SetActive(true);
+		switchingScreen.SetActive(false);
+
+		camTarPosition = camera.position - new Vector3(camTarPosition.x, charSwitchHolder.position.y);
+		currentChar = 0;
 	}
 
 	public void ChooseChar()
