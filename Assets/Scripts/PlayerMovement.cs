@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				GameManager.HazardHit();
 
-				//api.RegisterScore();
+				api.RegisterScore();
 
 				rb.constraints = RigidbodyConstraints.None;
 
