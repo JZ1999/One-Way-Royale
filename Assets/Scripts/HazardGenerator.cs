@@ -6,6 +6,7 @@ public class HazardGenerator : MonoBehaviour
 	#region Variables
 	public GameObject[] hazards;
 	public float timer;
+	[SerializeField]
 	private float timer_cp;
 	#endregion
 
@@ -38,5 +39,13 @@ public class HazardGenerator : MonoBehaviour
     {
 		Instantiate(obj, transform.position, Quaternion.Euler(0, Random.Range(0, 360), 0));
 	}
-    #endregion
+
+	public void UpdateTimeRespawn(float fix, bool div)
+	{
+		if (div)
+			timer /= fix;
+		else
+			timer *= fix;
+	}
+	#endregion
 }
