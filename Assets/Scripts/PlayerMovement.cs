@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
 	public float invincibleTime;
 	private float invincibleTimer;
 
+	[Range(0.0001f, 1)]
+	public float mudDebuffSpeed;
 
 	//Api Script
 	public ApiService api = new ApiService();
@@ -105,6 +107,14 @@ public class PlayerMovement : MonoBehaviour
 				Destroy(other.gameObject);
 				theAM.sfxCoin.Play();
 				Instantiate(coinEffect, gameObject.transform.position, gameObject.transform.rotation);
+			}
+			else if (other.CompareTag("Mud"))
+            {
+				GameManager.gameSpeed *= mudDebuffSpeed;
+				GameManager._gameSpeed *= mudDebuffSpeed;
+				GameManager.gameSpeedStore *= mudDebuffSpeed;
+
+
 			}
 		}
 			

@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
 	//player online
 	public GameObject[] _playersOnline;
 	static public GameObject[] playersOnline;
+	public GameObject mud;
 
 	//Death screen variables
 	public GameObject deathScreen;
@@ -113,7 +114,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {	
 		_canMove = canMove;
-		_gameSpeed = gameSpeed;
+		_gameSpeed = GameManager.gameSpeed;
 
 
 		if (!gameStarted && Input.GetMouseButtonDown(0))
@@ -123,7 +124,7 @@ public class GameManager : MonoBehaviour
 			tapMessage.SetActive(false);
 		}
 
-		//Increase speed over time
+		//Increase speed over time	
 		if (canMove)
 		{
 			increaseSpeedTimer -= Time.deltaTime;
@@ -219,6 +220,17 @@ public class GameManager : MonoBehaviour
 
 	public void RecievedDebuff(string nameDebuff)
     {
-		Debug.Log(nameDebuff);
-    }
+		switch (nameDebuff)
+		{
+			case "mud":
+				FindObjectOfType<HazardGenerator>().InstantiateObject(mud);
+				break;
+			case "coins":
+				// code block
+				break;
+			case "object":
+				// code block
+				break;
+		}
+	}
 }
