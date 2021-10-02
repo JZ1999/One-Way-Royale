@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hazards
   - Coins
+  - Mud
   layers:
   - Default
   - TransparentFX

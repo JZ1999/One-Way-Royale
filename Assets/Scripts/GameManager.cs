@@ -42,6 +42,11 @@ public class GameManager : MonoBehaviour
 
 	static private float distanceCovered;
 
+	//player online
+	public GameObject[] _playersOnline;
+	static public GameObject[] playersOnline;
+	public GameObject mud;
+
 	//Death screen variables
 	public GameObject deathScreen;
 	static public GameObject _deathScreen;
@@ -69,7 +74,7 @@ public class GameManager : MonoBehaviour
 		ResetVariables();
 
 		theAM = FindObjectOfType<AudioManager>();
-
+		playersOnline = _playersOnline;
 		_coinsText = coinsText;
 		_distanceText = distanceText;
 		_canMove = canMove;
@@ -109,7 +114,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {	
 		_canMove = canMove;
-		_gameSpeed = gameSpeed;
+		_gameSpeed = GameManager.gameSpeed;
 
 
 		if (!gameStarted && Input.GetMouseButtonDown(0))
@@ -119,7 +124,7 @@ public class GameManager : MonoBehaviour
 			tapMessage.SetActive(false);
 		}
 
-		//Increase speed over time
+		//Increase speed over time	
 		if (canMove)
 		{
 			increaseSpeedTimer -= Time.deltaTime;
@@ -192,7 +197,7 @@ public class GameManager : MonoBehaviour
 		theAM.gameOverMusic.Play();
 	}
 
-	static public void addCoin()
+	static public void AddCoin()
 	{
 		if (!collectedCoin)
 		{
@@ -200,6 +205,32 @@ public class GameManager : MonoBehaviour
 			collectedCoin = true;
 
 			_coinsText.text = "Coins: " + coinsCollect;
+		}
+	}
+
+	static public void ApplyDebuff(string nameDebuff) {
+		if(nameDebuff != "none")
+		{
+			int index = Random.Range(0, playersOnline.Length);
+			GameObject focusPlayer = playersOnline[index];
+			FindObjectOfType<GameManager>().RecievedDebuff(nameDebuff);
+			//focusPlayer.GetComponent<GameManager>().RecievedDebuff(nameDebuff);
+        }		
+	}
+
+	public void RecievedDebuff(string nameDebuff)
+    {
+		switch (nameDebuff)
+		{
+			case "mud":
+				FindObjectOfType<HazardGenerator>().InstantiateObject(mud);
+				break;
+			case "coins":
+				// code block
+				break;
+			case "object":
+				// code block
+				break;
 		}
 	}
 }
