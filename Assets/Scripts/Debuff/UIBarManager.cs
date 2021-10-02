@@ -8,11 +8,18 @@ public class UIBarManager : MonoBehaviour
 
     public Image uiBarBackground;
     public Image uiBarFront;
+    public Image uiIconDebuff;
+    public Sprite _uiIconDebuffSprite;
     public int tierBar = 0;
+    public int tierDebuff = -1;
     public Color[] color;
+    public DebuffData[] debuffs; 
+
     // Start is called before the first frame update
     void Start()
     {
+        _uiIconDebuffSprite = uiIconDebuff.sprite;
+        Debug.Log(uiIconDebuff.sprite.ToString());
         uiBarFront.fillAmount = 0f;
         uiBarBackground.fillAmount = 1;
         ChangeColorPairs();
@@ -29,7 +36,9 @@ public class UIBarManager : MonoBehaviour
         uiBarFront.fillAmount += amount;
         if(uiBarFront.fillAmount >= 1)
         {
-            if(color.Length > tierBar)
+            tierDebuff += 1;
+            uiIconDebuff.sprite = debuffs[tierDebuff].logo;
+            if (color.Length > tierBar)
                 FilledBar();
         }
     }
@@ -48,16 +57,17 @@ public class UIBarManager : MonoBehaviour
         saveColor.b = colorToChange.b;
         return saveColor;
     }
-    public bool UsedPowerUp(int powertier)
+    public string UsedPowerUp()
     {
-        bool canUsed = false;
-        if(powertier <= tierBar-2)
+        string nameDebuff = "none";
+        if(tierDebuff >= 0)
         {
-            canUsed = true;
-            tierBar -= powertier;
-            tierBar -= 2;
+            nameDebuff = debuffs[tierDebuff].nameDebuff;
+            tierBar = 0;
+            tierDebuff = -1;
+            uiIconDebuff.sprite = _uiIconDebuffSprite;
             ChangeColorPairs();
         }
-        return canUsed;
+        return nameDebuff;
     }
 }

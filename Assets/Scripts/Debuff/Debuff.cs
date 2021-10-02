@@ -4,7 +4,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "Debuff", menuName = "Debuff/Debuff", order = 3)]
 public class DebuffData : ScriptableObject
 {
-    [InspectorName("name")]
+    [InspectorName("namse")]
     public string nameDebuff;
 
     public string description;

@@ -25,7 +25,7 @@ public class HazardGenerator : MonoBehaviour
 			if (timer <= 0)
 			{
 				int random = Random.Range(0, hazards.Length);
-				Instantiate(hazards[random], transform.position, Quaternion.Euler(0, Random.Range(0, 360), 0));
+				InstantiateObject(hazards[random]);
 
 				timer = Random.Range(timer_cp * 0.75f, timer_cp * 1.25f);
 
@@ -34,6 +34,9 @@ public class HazardGenerator : MonoBehaviour
 			}
 		}
     }
-
+	public void InstantiateObject(GameObject obj)
+    {
+		Instantiate(obj, transform.position, Quaternion.Euler(0, Random.Range(0, 360), 0));
+	}
     #endregion
 }
