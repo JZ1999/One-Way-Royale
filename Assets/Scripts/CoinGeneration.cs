@@ -4,6 +4,7 @@ public class CoinGeneration : MonoBehaviour
 {
 
 	#region Variables
+	[SerializeField]
 	private float timer_cp;
 	public float timer;
 	public GameObject[] coinGroups;
@@ -39,5 +40,12 @@ public class CoinGeneration : MonoBehaviour
 		}
 	}
 
+
+	public void UpdateTimeRespawn(float fix, bool div)
+    {	if(div)
+			timer /= fix;
+		else
+			timer *= fix;
+	}
     #endregion
 }

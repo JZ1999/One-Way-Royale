@@ -19,7 +19,6 @@ public class UIBarManager : MonoBehaviour
     void Start()
     {
         _uiIconDebuffSprite = uiIconDebuff.sprite;
-        Debug.Log(uiIconDebuff.sprite.ToString());
         uiBarFront.fillAmount = 0f;
         uiBarBackground.fillAmount = 1;
         ChangeColorPairs();

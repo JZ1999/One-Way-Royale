@@ -17,8 +17,12 @@ public class PlayerMovement : MonoBehaviour
 	public float invincibleTime;
 	private float invincibleTimer;
 
-	[Range(0.0001f, 1)]
+	[Range(1, 10)]
 	public float mudDebuffSpeed;
+
+	//Generador Scripts
+	public CoinGeneration coinGeneration;
+	public HazardGenerator hazardGenerator;
 
 	//Api Script
 	public ApiService api = new ApiService();
@@ -87,8 +91,10 @@ public class PlayerMovement : MonoBehaviour
 			if (other.CompareTag("Hazards"))
 			{
 				GameManager.HazardHit();
-
-				//api.RegisterScore();
+#if !UNITY_EDITOR
+				
+				api.RegisterScore();
+#endif
 
 				rb.constraints = RigidbodyConstraints.None;
 
@@ -100,27 +106,42 @@ public class PlayerMovement : MonoBehaviour
 			else if (other.CompareTag("Coins"))
 			{
 				GameManager.AddCoin();
-                if (BarOnlineManager)
-                {
+				if (BarOnlineManager)
+				{
 					BarOnlineManager.FillBar(0.2f);
-                }
+				}
 				Destroy(other.gameObject);
 				theAM.sfxCoin.Play();
 				Instantiate(coinEffect, gameObject.transform.position, gameObject.transform.rotation);
 			}
 			else if (other.CompareTag("Mud"))
-            {
-				GameManager.gameSpeed *= mudDebuffSpeed;
-				GameManager._gameSpeed *= mudDebuffSpeed;
-				GameManager.gameSpeedStore *= mudDebuffSpeed;
-
-
+			{
+				GameManager.gameSpeed /= mudDebuffSpeed;
+				GameManager._gameSpeed /= mudDebuffSpeed;
+				GameManager.gameSpeedStore /= mudDebuffSpeed;
+				coinGeneration.UpdateTimeRespawn(mudDebuffSpeed, false);
+				hazardGenerator.UpdateTimeRespawn(mudDebuffSpeed, false);
 			}
 		}
 			
 	}
 
-	public void ResetPlayer()
+	private void OnTriggerExit(Collider other)
+	{
+		if (invincibleTimer <= 0)
+		{
+			if (other.CompareTag("Mud"))
+			{
+				GameManager.gameSpeed *= mudDebuffSpeed;
+				GameManager._gameSpeed *= mudDebuffSpeed;
+				GameManager.gameSpeedStore *= mudDebuffSpeed;
+				coinGeneration.UpdateTimeRespawn(mudDebuffSpeed, true);
+				hazardGenerator.UpdateTimeRespawn(mudDebuffSpeed, true);
+			}
+		}
+	}
+
+    public void ResetPlayer()
 	{
 		rb.constraints = RigidbodyConstraints.FreezeRotation;
 		transform.rotation = startRotation;
