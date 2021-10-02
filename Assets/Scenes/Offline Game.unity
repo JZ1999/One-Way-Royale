@@ -155,6 +155,7 @@ MonoBehaviour:
   - {fileID: 43152505343802526, guid: 6766196ea8fbbdb4ca6dc9b8d8a41e68, type: 3}
   - {fileID: 2370589898527246340, guid: 6d87ae35e9698d947a810238d9e670cc, type: 3}
   timer: 5
+  timer_cp: 0
 --- !u!4 &5859994
 Transform:
   m_ObjectHideFlags: 0
@@ -8066,6 +8067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4421864d405638f47bb4602ada78df3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer_cp: 0
   timer: 4
   coinGroups:
   - {fileID: 5595907909909040827, guid: cfa9339cd62f2d541abbed197287a512, type: 3}
@@ -8815,6 +8817,8 @@ MonoBehaviour:
   anim: {fileID: 850285896}
   invincibleTime: 2
   mudDebuffSpeed: 0
+  coinGeneration: {fileID: 0}
+  hazardGenerator: {fileID: 0}
   theAM: {fileID: 993408730}
   coinEffect: {fileID: 6226976485671538798, guid: 152b279083d23f94ea885faea4e42920,
     type: 3}
@@ -18973,6 +18977,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 13612538, guid: badeab758cb944528beb3bf25b0ecae4, type: 3}
       propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7094425900181959032, guid: badeab758cb944528beb3bf25b0ecae4,
+        type: 3}
+      propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:

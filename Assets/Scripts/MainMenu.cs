@@ -44,6 +44,11 @@ public class MainMenu : MonoBehaviour
 			PlayerPrefs.SetInt(theChars[currentChar].name, 1);
 		}
 
+		if (!PlayerPrefs.HasKey("SelectedChar"))
+		{
+			PlayerPrefs.SetString("SelectedChar", "chr_costume1");
+		}
+
 		if (PlayerPrefs.HasKey("CoinsCollected"))
 		{
 			coinsCollected = PlayerPrefs.GetInt("CoinsCollected");

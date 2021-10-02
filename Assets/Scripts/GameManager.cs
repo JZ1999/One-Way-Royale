@@ -99,14 +99,14 @@ public class GameManager : MonoBehaviour
 
 		targetSpeedMultiplier = speedMultiplier;
 		_distanceText.text = distanceCovered + "m";
-
+		return;
 		for(int i = 0; i < models.Length; i++)
 		{
 			if(models[i].name == PlayerPrefs.GetString("SelectedChar"))
 			{
 				GameObject clone = Instantiate(models[i], thePlayer.modelHolder.transform);
 				Destroy(clone.GetComponent<Rigidbody>());
-				defaultChar.SetActive(false);
+				//defaultChar.SetActive(false);
 			}
 		}
     }
@@ -213,9 +213,10 @@ public class GameManager : MonoBehaviour
 		{
 			int index = Random.Range(0, playersOnline.Length);
 			GameObject focusPlayer = playersOnline[index];
-			FindObjectOfType<GameManager>().RecievedDebuff(nameDebuff);
+			FindObjectOfType<GameSetupController>().SendMessage(nameDebuff);
+			//FindObjectOfType<GameManager>().RecievedDebuff(nameDebuff);
 			//focusPlayer.GetComponent<GameManager>().RecievedDebuff(nameDebuff);
-        }		
+		}		
 	}
 
 	public void RecievedDebuff(string nameDebuff)

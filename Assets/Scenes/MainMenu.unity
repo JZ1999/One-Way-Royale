@@ -985,6 +985,11 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7094425900181959032, guid: badeab758cb944528beb3bf25b0ecae4,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: badeab758cb944528beb3bf25b0ecae4, type: 3}
 --- !u!4 &373284345 stripped
@@ -1047,6 +1052,11 @@ PrefabInstance:
     - target: {fileID: 412538, guid: badeab758cb944528beb3bf25b0ecae4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7094425900181959032, guid: badeab758cb944528beb3bf25b0ecae4,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: badeab758cb944528beb3bf25b0ecae4, type: 3}
@@ -1389,6 +1399,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1326841931}
     m_Modifications:
+    - target: {fileID: -1211988854269451124, guid: 4b6b4d20ac5754d84b9c7fec4be75dc2,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 162324, guid: 4b6b4d20ac5754d84b9c7fec4be75dc2, type: 3}
       propertyPath: m_Name
       value: chr_fatkid
@@ -1813,6 +1828,11 @@ PrefabInstance:
     - target: {fileID: 5417028, guid: 9c14a333ff85d457591a4f6efb8d0b93, type: 3}
       propertyPath: m_IsKinematic
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458212765243560264, guid: 9c14a333ff85d457591a4f6efb8d0b93,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c14a333ff85d457591a4f6efb8d0b93, type: 3}
@@ -2727,6 +2747,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1326841931}
     m_Modifications:
+    - target: {fileID: -7734663179892467089, guid: c3d2a957ceb8c4d5fabfa7cb3c5c53ac,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 124018, guid: c3d2a957ceb8c4d5fabfa7cb3c5c53ac, type: 3}
       propertyPath: m_Name
       value: chr_punk
@@ -2843,6 +2868,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1326841931}
     m_Modifications:
+    - target: {fileID: -7777780291930801081, guid: 4be4227665b7642548e32d52e45e9528,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 164868, guid: 4be4227665b7642548e32d52e45e9528, type: 3}
       propertyPath: m_Name
       value: chr_hazmat1
