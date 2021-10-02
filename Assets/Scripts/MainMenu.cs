@@ -86,7 +86,8 @@ public class MainMenu : MonoBehaviour
 		mainScreen.SetActive(true);
 		switchingScreen.SetActive(false);
 
-		camTarPosition = camera.position - new Vector3(0f, charSwitchHolder.position.y);
+		camTarPosition = camera.position - new Vector3(camTarPosition.x, charSwitchHolder.position.y);
+		currentChar = 0;
 	}
 
 	public void ChooseChar()
