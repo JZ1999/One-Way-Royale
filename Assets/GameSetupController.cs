@@ -36,10 +36,11 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 	[PunRPC]
 	void SendChat(Photon.Realtime.Player sender, string debuff)
 	{
-		Debug.Log(string.Format("{0} {1} {2} {3} {4} {5}", sender.IsLocal, sender.UserId, sender.IsMasterClient, sender.NickName, sender.HasRejoined, sender.ActorNumber));
-		Debug.Log(debuff);
+		
 		if (sender.IsLocal)
 			return;
+		Debug.Log(string.Format("{0} {1} {2} {3} {4} {5}", sender.IsLocal, sender.UserId, sender.IsMasterClient, sender.NickName, sender.HasRejoined, sender.ActorNumber));
+		Debug.Log(debuff);
 		FindObjectOfType<GameManager>().RecievedDebuff(debuff);
 	}
 

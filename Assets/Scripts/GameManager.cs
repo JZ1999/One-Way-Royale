@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class GameManager : MonoBehaviour
 {
@@ -118,12 +119,22 @@ public class GameManager : MonoBehaviour
 		_canMove = canMove;
 		_gameSpeed = GameManager.gameSpeed;
 
+		if (playersOnline.Length > 0 && PhotonNetwork.CurrentRoom.Players.Keys.Count > 1)
+		{
+			if (!gameStarted && Input.GetMouseButtonDown(0))
+			{
+				gameStarted = true;
+                canMove = true;
+				tapMessage.SetActive(false);
 
-		if (!gameStarted && Input.GetMouseButtonDown(0))
+			}
+		}
+		else if (playersOnline.Length == 0 && !gameStarted && Input.GetMouseButtonDown(0))
 		{
 			gameStarted = true;
 			canMove = true;
 			tapMessage.SetActive(false);
+
 		}
 
 		//Increase speed over time	

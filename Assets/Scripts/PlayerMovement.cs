@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
 	#region Variables
+	public Camera camera;
 	public Rigidbody rb;
 	public float jumpForce;
 	public Transform modelHolder;
@@ -13,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
 	private Vector3 startPosition;
 	private Quaternion startRotation;
+
+	private bool wantJump = false;
 
 	public float invincibleTime;
 	private float invincibleTimer;
@@ -67,8 +70,9 @@ public class PlayerMovement : MonoBehaviour
 
 		if (GameManager.canMove && onGround)
 		{
-			if (Input.GetMouseButtonDown(0))
+			if (wantJump)
 			{
+				wantJump = false;
 				rb.velocity = new Vector3(0, jumpForce, 0);
 				theAM.sfxJump.Play();
 			}
@@ -141,6 +145,12 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+	public void RaiseDebuff()
+    {
+		string Power = BarOnlineManager.UsedPowerUp();
+		GameManager.ApplyDebuff(Power);
+	}
+
     public void ResetPlayer()
 	{
 		rb.constraints = RigidbodyConstraints.FreezeRotation;
@@ -149,6 +159,9 @@ public class PlayerMovement : MonoBehaviour
 
 		invincibleTimer = invincibleTime;
 	}
-
+	public void setJump()
+    {
+			wantJump = true;
+    }
 	#endregion
 }
