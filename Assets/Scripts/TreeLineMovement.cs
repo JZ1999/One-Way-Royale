@@ -5,7 +5,7 @@ public class TreeLineMovement : MonoBehaviour
 
 	#region Variables
 	public Transform disappearPoint;
-	public Collider collider;
+	public Collider treeCollider;
     #endregion
 
     #region Unity Methods    
@@ -24,7 +24,7 @@ public class TreeLineMovement : MonoBehaviour
 
 		if(transform.position.z < disappearPoint.position.z)
 		{
-			transform.position += new Vector3(0f, 0f, collider.bounds.size.z * 2);
+			transform.position += new Vector3(0f, 0f, treeCollider.bounds.size.z * 2);
 		}
 	}
 

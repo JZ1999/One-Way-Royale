@@ -10,8 +10,7 @@ public class MainMenu : MonoBehaviour
 	public string levelToLoad;
 	public GameObject mainScreen;
 	public GameObject switchingScreen;
-	public Transform camera;
-	[SerializeField]
+	public Transform mainCamera;
 	public Transform charSwitchHolder;
 	private Vector3 camTarPosition;
 	public float cameraSpeed;
@@ -37,12 +36,17 @@ public class MainMenu : MonoBehaviour
 
 	void Start()
     {
-		camTarPosition = camera.position;
+		camTarPosition = mainCamera.position;
 
 		if (!PlayerPrefs.HasKey(theChars[currentChar].name))
 		{
 
 			PlayerPrefs.SetInt(theChars[currentChar].name, 1);
+		}
+
+		if (!PlayerPrefs.HasKey("SelectedChar"))
+		{
+			PlayerPrefs.SetString("SelectedChar", "chr_costume1");
 		}
 
 		if (PlayerPrefs.HasKey("CoinsCollected"))
@@ -57,7 +61,7 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
-		camera.position = Vector3.Lerp(camera.position, camTarPosition, cameraSpeed * Time.deltaTime);
+		mainCamera.position = Vector3.Lerp(mainCamera.position, camTarPosition, cameraSpeed * Time.deltaTime);
 
 		coinsText.text = "Coins: " + coinsCollected;
 
@@ -86,7 +90,7 @@ public class MainMenu : MonoBehaviour
 		mainScreen.SetActive(true);
 		switchingScreen.SetActive(false);
 
-		camTarPosition = camera.position - new Vector3(camTarPosition.x, charSwitchHolder.position.y);
+		camTarPosition = mainCamera.position - new Vector3(camTarPosition.x, charSwitchHolder.position.y);
 		currentChar = 0;
 	}
 
@@ -95,7 +99,7 @@ public class MainMenu : MonoBehaviour
 		mainScreen.SetActive(false);
 		switchingScreen.SetActive(true);
 
-		camTarPosition = camera.position + new Vector3(0f, charSwitchHolder.position.y);
+		camTarPosition = mainCamera.position + new Vector3(0f, charSwitchHolder.position.y);
 
 		UnlockedCheck();
 	}
@@ -192,7 +196,9 @@ public class MainMenu : MonoBehaviour
 		if(IsVideoAdLoaded())
 		{
 			ShowOptions options = new ShowOptions();
-			options.resultCallback = HandleShowResult;
+			//options.resultCallback = HandleShowResult;
+
+			//TODO check if all this code regarding ads can be deleted
 
 			Advertisement.Show(videoAdZone, options);
 		}
