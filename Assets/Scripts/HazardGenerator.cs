@@ -38,7 +38,7 @@ public class HazardGenerator : MonoBehaviour
 	public void InstantiateObject(GameObject obj)
     {
 		Debug.Log(obj);
-		Instantiate(obj, transform.position, Quaternion.Euler(0, Random.Range(0, 360), 0));
+		Instantiate(obj, transform.position, obj.transform.rotation);
 	}
 
 	public void UpdateTimeRespawn(float fix, bool div)
