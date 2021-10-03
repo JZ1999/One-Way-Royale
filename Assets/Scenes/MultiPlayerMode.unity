@@ -984,6 +984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   photonView: {fileID: 0}
   spawn: {fileID: 30436423}
+  prefab: {fileID: 181248, guid: 23553e9e1c6e54e04ac8799f579f6f53, type: 3}
 --- !u!4 &110976446
 Transform:
   m_ObjectHideFlags: 0
@@ -9015,12 +9016,11 @@ MonoBehaviour:
   color:
   - {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
   - {r: 1, g: 0.25, b: 0.25, a: 0}
-  - {r: 0, g: 0.19427729, b: 1, a: 0}
-  - {r: 0.29063702, g: 0, b: 1, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.4433962, g: 0.07738519, b: 0.07738519, a: 0}
+  - {r: 0.35346028, g: 0, b: 0.4245283, a: 0}
   debuffs:
-  - {fileID: 11400000, guid: 6e27b3d5f408bc148be02746f34956ef, type: 2}
-  - {fileID: 11400000, guid: e960dfa6ed71dec4f9c1f4e84da46fd7, type: 2}
+  - {fileID: 11400000, guid: cc583f1b7349905459760a4fb83559f2, type: 2}
+  - {fileID: 11400000, guid: 98a8da987258faa41ab3ee81b1234f27, type: 2}
   - {fileID: 11400000, guid: c8fe5c06f66c7ff469f4fca9f2ad9cde, type: 2}
 --- !u!1001 &862290724
 PrefabInstance:

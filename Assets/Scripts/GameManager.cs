@@ -99,14 +99,16 @@ public class GameManager : MonoBehaviour
 
 		targetSpeedMultiplier = speedMultiplier;
 		_distanceText.text = distanceCovered + "m";
-		return;
-		for(int i = 0; i < models.Length; i++)
+		if (playersOnline.Length == 0)
 		{
-			if(models[i].name == PlayerPrefs.GetString("SelectedChar"))
+			for (int i = 0; i < models.Length; i++)
 			{
-				GameObject clone = Instantiate(models[i], thePlayer.modelHolder.transform);
-				Destroy(clone.GetComponent<Rigidbody>());
-				//defaultChar.SetActive(false);
+				if (models[i].name == PlayerPrefs.GetString("SelectedChar"))
+				{
+					GameObject clone = Instantiate(models[i], thePlayer.modelHolder.transform);
+					Destroy(clone.GetComponent<Rigidbody>());
+					//defaultChar.SetActive(false);
+				}
 			}
 		}
     }

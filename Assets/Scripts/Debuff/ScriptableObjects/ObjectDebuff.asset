@@ -11,4 +11,9 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b0fb1b0bba7c044ea15f15f8c940744, type: 3}
   m_Name: ObjectDebuff
-  m_EditorClassIdentifier: Assembly-CSharp::DebuffData
+  m_EditorClassIdentifier: 
+  nameDebuff: object
+  description: object
+  costOfAplication: 3
+  playersEffected: 1
+  logo: {fileID: 21300000, guid: 1a2c8df41b5e407449901242f514e4f1, type: 3}

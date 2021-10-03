@@ -13,6 +13,8 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 
 	public Transform spawn;
 
+	public GameObject prefab;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -38,15 +40,16 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 		Debug.Log(debuff);
 		if (sender.IsLocal)
 			return;
+		FindObjectOfType<GameManager>().RecievedDebuff(debuff);
 	}
 
 	private void CreatePlayer()
 	{
 		Debug.Log("Creating Player");
 		int playersInRoom = PhotonNetwork.CurrentRoom.Players.Keys.Count;
-		string prefab = PlayerPrefs.GetString("SelectedChar");
+		//string prefab = PlayerPrefs.GetString("SelectedChar");
 		Debug.Log(prefab);
-		GameObject player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", prefab), spawn.position, Quaternion.identity);
+		GameObject player = Instantiate(prefab, spawn.position, Quaternion.identity);
 		player.transform.parent = spawn;
 		Destroy(player.GetComponent<Rigidbody>());
 		Debug.Log(player);

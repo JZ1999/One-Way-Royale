@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: MudDebuff
-  m_EditorClassIdentifier: Assembly-CSharp::DebuffData
-  nameDebuff: mud
-  description: Put mud in the enemy
-  costOfAplication: 1
+  m_Script: {fileID: 11500000, guid: 0b0fb1b0bba7c044ea15f15f8c940744, type: 3}
+  m_Name: CoinDebuff
+  m_EditorClassIdentifier: 
+  nameDebuff: coin
+  description: coin
+  costOfAplication: 2
   playersEffected: 1
-  logo: {fileID: 21300000, guid: 694aa9d8c1bd8ca48ab3e542b78b81e4, type: 3}
+  logo: {fileID: 21300000, guid: 4c907971a5e2fb74aa06aaa138fd863f, type: 3}
