@@ -28,8 +28,10 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 	// Start is called before the first frame update
 	void Start()
     {
-		PhotonNetwork.ConnectUsingSettings();
-		quickStartButton.GetComponent<Button>().interactable = false;
+		PhotonNetwork.Disconnect();
+		PhotonNetwork.ConnectUsingSettings();		
+		quickStartButton.GetComponent<Button>().interactable = PhotonNetwork.IsConnectedAndReady;
+
 	}
 
 	public override void OnJoinRandomFailed(short returnCode, string message)
