@@ -68,15 +68,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 #endif
 
-		if (GameManager.canMove && onGround)
-		{
-			if (wantJump)
-			{
-				wantJump = false;
-				rb.velocity = new Vector3(0, jumpForce, 0);
-				theAM.sfxJump.Play();
-			}
-		}
+		
 
 		//control invincibility
 		if(invincibleTimer > 0)
@@ -161,7 +153,11 @@ public class PlayerMovement : MonoBehaviour
 	}
 	public void setJump()
     {
-			wantJump = true;
-    }
+		if (GameManager.canMove && onGround)
+		{
+				rb.velocity = new Vector3(0, jumpForce, 0);
+				theAM.sfxJump.Play();
+		}
+	}
 	#endregion
 }

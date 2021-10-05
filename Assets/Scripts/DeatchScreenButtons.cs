@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DeatchScreenButtons : MonoBehaviour
@@ -65,6 +66,8 @@ public class DeatchScreenButtons : MonoBehaviour
 
 	public void MainMenu()
 	{
+		if (PhotonNetwork.IsConnected)
+			PhotonNetwork.Disconnect();
 		SceneManager.LoadScene(GameManager._menuScene);
 
 		Time.timeScale = 1f;
