@@ -247,4 +247,10 @@ public class GameManager : MonoBehaviour
 				break;
 		}
 	}
+
+	public float GetDistance()
+    {
+		return distanceCovered;
+
+	}
 }

@@ -15,13 +15,14 @@ public class PlayerMovement : MonoBehaviour
 	private Vector3 startPosition;
 	private Quaternion startRotation;
 
-	private bool wantJump = false;
-
 	public float invincibleTime;
 	private float invincibleTimer;
 
 	[Range(1, 10)]
 	public float mudDebuffSpeed;
+
+	//online vars
+	public ValidedDistanceOnline validedDistanceOnline;
 
 	//Generador Scripts
 	public CoinGeneration coinGeneration;
@@ -86,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if (other.CompareTag("Hazards"))
 			{
+				validedDistanceOnline.YouLose();
 				GameManager.HazardHit();
 #if !UNITY_EDITOR
 				
