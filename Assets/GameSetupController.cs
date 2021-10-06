@@ -72,17 +72,18 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				{
 					if (p.GetComponentInParent<PlayerMovement>().playerData.name == player.name)
 					{
-						break;
+						return;
 					}
 				}
 
 				GameObject playerObject = Instantiate(Resources.Load(Path.Combine("PhotonPrefabs", player.charName)), otherPlayer.transform.position, otherPlayer.transform.rotation) as GameObject;
-
 				players.Add(playerObject);
 				playerObject.transform.parent = otherPlayer.transform;
 				Destroy(playerObject.GetComponent<Rigidbody>());
 
 				PlayerMovement playerMovement = playerObject.GetComponentInParent<PlayerMovement>();
+
+				playerMovement.playerData = player;
 
 				player = new Player()
 				{
@@ -91,7 +92,6 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				};
 				//Send message
 				photonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
-				playerMovement.playerData = player;
 				break;
 			case "jump":
 				player = JsonUtility.FromJson<Player>(json);
