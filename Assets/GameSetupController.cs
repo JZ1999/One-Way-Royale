@@ -66,14 +66,31 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 		switch (type)
 		{
 			case "spawn":
+				
 				player = JsonUtility.FromJson<Player>(json);
-				GameObject playerObject = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", player.charName), otherPlayer.transform.position, otherPlayer.transform.rotation);
+				foreach (GameObject p in players)
+				{
+					if (p.GetComponentInParent<PlayerMovement>().playerData.name == player.name)
+					{
+						break;
+					}
+				}
+
+				GameObject playerObject = Instantiate(Resources.Load(Path.Combine("PhotonPrefabs", player.charName)), otherPlayer.transform.position, otherPlayer.transform.rotation) as GameObject;
 
 				players.Add(playerObject);
 				playerObject.transform.parent = otherPlayer.transform;
 				Destroy(playerObject.GetComponent<Rigidbody>());
 
 				PlayerMovement playerMovement = playerObject.GetComponentInParent<PlayerMovement>();
+
+				player = new Player()
+				{
+					name = PlayerPrefs.GetString("name"),
+					charName = PlayerPrefs.GetString("SelectedChar")
+				};
+				//Send message
+				photonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
 				playerMovement.playerData = player;
 				break;
 			case "jump":
