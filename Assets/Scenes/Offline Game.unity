@@ -8947,8 +8947,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   anim: {fileID: 850285896}
+  playerData:
+    name: 
+    charName: 
   invincibleTime: 2
   mudDebuffSpeed: 0
+  validedDistanceOnline: {fileID: 0}
   coinGeneration: {fileID: 0}
   hazardGenerator: {fileID: 0}
   theAM: {fileID: 993408730}
@@ -8957,6 +8961,7 @@ MonoBehaviour:
   BarOnlineManager: {fileID: 0}
   timeForUsePowerUpSaved: 0
   timeForUsePowerUp: 0
+  gameSetup: {fileID: 0}
 --- !u!95 &850285896
 Animator:
   serializedVersion: 3
@@ -19059,6 +19064,10 @@ PrefabInstance:
     - target: {fileID: 112538, guid: badeab758cb944528beb3bf25b0ecae4, type: 3}
       propertyPath: m_Name
       value: chr_costume1
+      objectReference: {fileID: 0}
+    - target: {fileID: 112538, guid: badeab758cb944528beb3bf25b0ecae4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 412538, guid: badeab758cb944528beb3bf25b0ecae4, type: 3}
       propertyPath: m_RootOrder
