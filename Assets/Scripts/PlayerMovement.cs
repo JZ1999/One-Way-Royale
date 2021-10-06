@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Photon.Pun;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 	public LayerMask whatIsGround;
 	private bool onGround;
 	public Animator anim;
+	public Player playerData;
 
 	private Vector3 startPosition;
 	private Quaternion startRotation;
@@ -39,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
 	public float timeForUsePowerUpSaved;
 	public float timeForUsePowerUp;
+
+	public GameSetupController gameSetup;
 	#region Unity Methods    
 
 	void Start()
@@ -46,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 		startPosition = transform.position;
 		startRotation = transform.rotation;
 		timeForUsePowerUp = timeForUsePowerUpSaved;
-    }
+	}
 
     void Update()
     {
@@ -153,12 +157,28 @@ public class PlayerMovement : MonoBehaviour
 
 		invincibleTimer = invincibleTime;
 	}
+
+	public void setJumpOffline()
+	{
+			rb.velocity = new Vector3(0, jumpForce, 0);
+			theAM.sfxJump.Play();
+	}
+
 	public void setJump()
     {
 		if (GameManager.canMove && onGround)
 		{
-				rb.velocity = new Vector3(0, jumpForce, 0);
-				theAM.sfxJump.Play();
+			rb.velocity = new Vector3(0, jumpForce, 0);
+			theAM.sfxJump.Play();
+
+			Player player = new Player()
+			{
+				name = PlayerPrefs.GetString("name"),
+				charName = PlayerPrefs.GetString("SelectedChar")
+			};
+			PhotonView playerPhotonView = gameSetup.GetComponent<PhotonView>();
+			playerPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "jump", JsonUtility.ToJson(player));
+
 		}
 	}
 	#endregion
