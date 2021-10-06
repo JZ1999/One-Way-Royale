@@ -1017,7 +1017,7 @@ MonoBehaviour:
   distance: 0
   winText: {fileID: 1876407274}
   loseText: {fileID: 2060037805}
-  objective: 585
+  objective: 1000
 --- !u!4 &112832024 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 422372, guid: 0de8523f5dff24a42840b50df2831ef0,
@@ -20481,7 +20481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1876407275
 RectTransform:
   m_ObjectHideFlags: 0
