@@ -105,7 +105,7 @@ namespace Photon.Pun
                 return;
             }
 
-            IPunOwnershipCallbacks punOwnershipCallback = target as IPunOwnershipCallbacks;
+            IPunCallbacks punOwnershipCallback = target as IPunCallbacks;
             if (punOwnershipCallback != null)
             {
                 OnOwnershipRequestEv += punOwnershipCallback.OnOwnershipRequest;
@@ -134,7 +134,7 @@ namespace Photon.Pun
                 return;
             }
 
-            IPunOwnershipCallbacks punOwnershipCallback = target as IPunOwnershipCallbacks;
+            IPunCallbacks punOwnershipCallback = target as IPunCallbacks;
             if (punOwnershipCallback != null)
             {
                 OnOwnershipRequestEv -= punOwnershipCallback.OnOwnershipRequest;

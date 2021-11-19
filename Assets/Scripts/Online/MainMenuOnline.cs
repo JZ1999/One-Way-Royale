@@ -8,6 +8,7 @@ public class MainMenuOnline : MonoBehaviourPun, IPunObservable
     public GameObject UICapacity;
     public int players;
     public int actuallyReady;
+    public QuickStartRoomController QuickStartRoomController;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         
@@ -41,7 +42,7 @@ public class MainMenuOnline : MonoBehaviourPun, IPunObservable
         switch (type)
         {
             case "player_ready":
-
+                QuickStartRoomController.StartGame();
                 break;
         }
     }

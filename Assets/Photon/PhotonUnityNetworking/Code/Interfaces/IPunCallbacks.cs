@@ -42,7 +42,7 @@ namespace Photon.Pun
     /// Global Callback interface for ownership changes. These callbacks will fire for changes to ANY PhotonView that changes.
     /// Consider using IOnPhotonViewControllerChange for callbacks from a specific PhotonView.
     /// </summary>
-    public interface IPunOwnershipCallbacks
+    public interface IPunCallbacks
     {
         /// <summary>
         /// Called when another player requests ownership of a PhotonView. 

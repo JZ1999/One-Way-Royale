@@ -5,6 +5,7 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
 {
 
 	public int multiplayerSceneIndex;
+	public MainMenuOnline mainMenuOnline;
 
 	public override void OnEnable()
 	{
@@ -22,11 +23,15 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
 	{
 		base.OnJoinedRoom();
 		Debug.Log("Joined room");
-		if(!PhotonNetwork.IsMasterClient)
+		if (!PhotonNetwork.IsMasterClient)
+		{
 			StartGame();
+			mainMenuOnline.PlayerIsReady();
+		}
+			
 	}
 
-	private void StartGame()
+	public void StartGame()
 	{
 		Debug.Log("Starting Game");
 		PhotonNetwork.LoadLevel(multiplayerSceneIndex);	

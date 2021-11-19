@@ -5,7 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 
-public class RoomsUI : MonoBehaviourPunCallbacks
+public class RoomsUI : MonoBehaviourPunCallbacks, IPunCallbacks
 {
     // Start is called before the first frame update
     public GameObject lobbyGrid;
@@ -47,6 +47,11 @@ public class RoomsUI : MonoBehaviourPunCallbacks
     {
         Debug.Log(42);
         
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        Debug.Log(level);
     }
 
     override public void OnLeftLobby()
@@ -101,4 +106,20 @@ public class RoomsUI : MonoBehaviourPunCallbacks
         Debug.Log(12);
         
     }
+    
+    public void OnOwnershipRequest(PhotonView targetView, Photon.Realtime.Player requestingPlayer)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnOwnershipTransfered(PhotonView targetView, Photon.Realtime.Player previousOwner)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnOwnershipTransferFailed(PhotonView targetView, Photon.Realtime.Player senderOfFailedRequest)
+    {
+        throw new System.NotImplementedException();
+    }
+    
 }
