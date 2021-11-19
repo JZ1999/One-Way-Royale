@@ -250,6 +250,7 @@ public class MainMenu : MonoBehaviour
 
 	public void SearchRoomUI()
     {
+		PhotonNetwork.JoinLobby();
 		onlineUI.SetActive(false);
 		availableRooms.SetActive(true);
 	}

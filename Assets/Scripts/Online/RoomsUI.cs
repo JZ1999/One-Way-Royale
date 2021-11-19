@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class RoomsUI : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
+    public GameObject lobbyGrid;
+    public GameObject lobbyButton;
+    public GameObject NetworkManager;
+
     void Start()
     {
         PhotonNetwork.AddCallbackTarget(this);
@@ -19,9 +24,23 @@ public class RoomsUI : MonoBehaviourPunCallbacks
         
     } 
 
-    public void GeneratorRoomButtons()
+    public void GeneratorRoomButtons(List<RoomInfo> roomList)
     {
-        
+        foreach (Transform child in lobbyGrid.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        foreach (RoomInfo room in roomList) {
+            if (!room.IsOpen || !room.IsVisible || room.MaxPlayers == 0)
+                continue;
+
+            GameObject newbutton  = Instantiate(lobbyButton, lobbyGrid.transform);
+            TMPro.TextMeshProUGUI[] buttonsText = newbutton.GetComponentsInChildren<TMPro.TextMeshProUGUI>();
+            buttonsText[1].text = room.Name.Split('@')[0];
+            buttonsText[0].text = room.PlayerCount +"/" + room.MaxPlayers;
+            newbutton.GetComponent<Button>().onClick.AddListener(delegate { PhotonNetwork.JoinRoom(room.Name); });
+        }
     }
 
     override public void OnJoinedLobby()
@@ -38,9 +57,7 @@ public class RoomsUI : MonoBehaviourPunCallbacks
 
     override public void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        //
-        Debug.Log(2);
-        Debug.Log(roomList);
+        GeneratorRoomButtons(roomList);
     }
 
     override public void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)

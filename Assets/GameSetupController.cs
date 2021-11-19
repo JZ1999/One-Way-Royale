@@ -58,8 +58,6 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 	[PunRPC]
 	void SendChat(Photon.Realtime.Player sender, string type, string json)
 	{
-		if (type.Equals("spawn_hazard"))
-			Debug.LogFormat("Sent {0} to spawn hazard", json);
 		if (sender.IsLocal)
 			return;
 		Debug.Log(string.Format("{0} {1} {2} {3} {4} {5}", sender.IsLocal, sender.UserId, sender.IsMasterClient, sender.NickName, sender.HasRejoined, sender.ActorNumber));

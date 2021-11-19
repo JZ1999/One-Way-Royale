@@ -22,7 +22,8 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
 	{
 		base.OnJoinedRoom();
 		Debug.Log("Joined room");
-		//StartGame();
+		if(!PhotonNetwork.IsMasterClient)
+			StartGame();
 	}
 
 	private void StartGame()
