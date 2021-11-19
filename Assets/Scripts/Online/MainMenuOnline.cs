@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MainMenuOnline : MonoBehaviourPun, IPunObservable
 {
+    public PhotonView customPhotonView;
     public GameObject UICapacity;
     public int players;
     public int actuallyReady;
@@ -29,11 +30,11 @@ public class MainMenuOnline : MonoBehaviourPun, IPunObservable
 
     public void PlayerIsReady()
     {
-        photonView.RPC("MessageReceived", RpcTarget.All, PhotonNetwork.LocalPlayer, "player_ready", "");
+        customPhotonView.RPC("MessageReceived", RpcTarget.All, PhotonNetwork.LocalPlayer, "player_ready", "");
     }
 
     [PunRPC]
-    void SendChat(Photon.Realtime.Player sender, string type, string json)
+    void MessageReceived(Photon.Realtime.Player sender, string type, string json)
     {
         if (sender.IsLocal)
             return;

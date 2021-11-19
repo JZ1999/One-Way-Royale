@@ -85,7 +85,7 @@ public class RoomsUI : MonoBehaviourPunCallbacks, IPunCallbacks
 
     override public void OnDisconnected(DisconnectCause cause)
     {
-        Debug.Log(15);
+        Debug.Log(cause);
         
     }
 
