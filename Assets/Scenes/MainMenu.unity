@@ -148,7 +148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &29467477
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1456,6 +1456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   multiplayerSceneIndex: 2
+  mainMenuOnline: {fileID: 720541976}
 --- !u!1 &458097192
 GameObject:
   m_ObjectHideFlags: 0
@@ -2317,6 +2318,7 @@ MonoBehaviour:
   UICapacity: {fileID: 0}
   players: 0
   actuallyReady: 0
+  QuickStartRoomController: {fileID: 447782153}
 --- !u!1 &731895258
 GameObject:
   m_ObjectHideFlags: 0
