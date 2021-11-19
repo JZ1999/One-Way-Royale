@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-[System.Serializable]
+﻿[System.Serializable]
 public class Player
 {
 	public string name;

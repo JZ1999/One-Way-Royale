@@ -22,7 +22,7 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
 	{
 		base.OnJoinedRoom();
 		Debug.Log("Joined room");
-		StartGame();
+		//StartGame();
 	}
 
 	private void StartGame()

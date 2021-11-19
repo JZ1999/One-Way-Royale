@@ -18,13 +18,6 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 		quickStartButton.GetComponent<Button>().interactable = true;
 	}
 
-	public void QuickStart()
-	{
-		quickStartButton.SetActive(false);
-		quickCancelButton.SetActive(true);
-		PhotonNetwork.JoinRandomRoom();
-	}
-
 	// Start is called before the first frame update
 	void Start()
     {
@@ -41,13 +34,15 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 		CreateRoom();
 	}
 
-	void CreateRoom()
+	public void CreateRoom()
 	{
 		Debug.Log("Creating room");
 		int randomRoomNumber = Random.Range(0, 10_000);
 		RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte) roomSize };
-		PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOptions);
-		Debug.Log(randomRoomNumber);
+		string masterName = PlayerPrefs.GetString("name");
+		string nameRoom = masterName + "@" + randomRoomNumber;
+		PhotonNetwork.CreateRoom(nameRoom, roomOptions);
+		Debug.Log(nameRoom);
 	}
 
 	public override void OnCreateRoomFailed(short returnCode, string message)

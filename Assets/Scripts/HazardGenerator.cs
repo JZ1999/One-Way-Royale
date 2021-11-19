@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Photon.Pun;
 
 public class HazardGenerator : MonoBehaviour
 {
@@ -8,6 +9,11 @@ public class HazardGenerator : MonoBehaviour
 	public float timer;
 	[SerializeField]
 	private float timer_cp;
+	[SerializeField]
+	private GameObject gameSetup;
+	private PhotonView photonView;
+	[SerializeField]
+	private Transform rightLaneGenerator;
 	#endregion
 
 	#region Unity Methods    
@@ -15,7 +21,8 @@ public class HazardGenerator : MonoBehaviour
 	void Start()
     {
 		timer_cp = timer;
-    }
+		photonView = gameSetup.GetComponent<PhotonView>();
+	}
 
     void Update()
     {
@@ -27,6 +34,14 @@ public class HazardGenerator : MonoBehaviour
 			{
 				int random = Random.Range(0, hazards.Length);
 				InstantiateObject(hazards[random]);
+				Hazard hazard = new Hazard()
+				{
+					id = random,
+					position = rightLaneGenerator.position
+					
+				};
+				if(photonView)
+					photonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn_hazard", JsonUtility.ToJson(hazard));
 
 				timer = Random.Range(timer_cp * 0.75f, timer_cp * 1.25f);
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Photon.Pun;
 using UnityEngine.Advertisements;
 
 public class MainMenu : MonoBehaviour
@@ -8,7 +9,9 @@ public class MainMenu : MonoBehaviour
 
 	#region Variables
 	public string levelToLoad;
-	public GameObject mainScreen;
+	public GameObject selectMode;
+	public GameObject onlineUI;
+	public GameObject availableRooms;
 	public GameObject switchingScreen;
 	public Transform mainCamera;
 	public Transform charSwitchHolder;
@@ -36,6 +39,7 @@ public class MainMenu : MonoBehaviour
 
 	void Start()
     {
+		
 		camTarPosition = mainCamera.position;
 
 		if (!PlayerPrefs.HasKey(theChars[currentChar].name))
@@ -57,6 +61,7 @@ public class MainMenu : MonoBehaviour
 			PlayerPrefs.SetInt("CoinsCollected", 0);
 			coinsCollected = 0;
 		}
+
 	}
 
     void Update()
@@ -87,7 +92,7 @@ public class MainMenu : MonoBehaviour
 	}
 	public void MainScreen()
     {
-		mainScreen.SetActive(true);
+		selectMode.SetActive(true);
 		switchingScreen.SetActive(false);
 
 		camTarPosition = mainCamera.position - new Vector3(camTarPosition.x, charSwitchHolder.position.y);
@@ -96,7 +101,7 @@ public class MainMenu : MonoBehaviour
 
 	public void ChooseChar()
 	{
-		mainScreen.SetActive(false);
+		selectMode.SetActive(false);
 		switchingScreen.SetActive(true);
 
 		camTarPosition = mainCamera.position + new Vector3(0f, charSwitchHolder.position.y);
@@ -235,6 +240,18 @@ public class MainMenu : MonoBehaviour
 	public void CloseAdPanel()
 	{
 		adRewardPanel.SetActive(false);
+	}
+
+	public void OnlineUI()
+    {
+		selectMode.SetActive(false);
+		onlineUI.SetActive(true);
+	}
+
+	public void SearchRoomUI()
+    {
+		onlineUI.SetActive(false);
+		availableRooms.SetActive(true);
 	}
 }
 
