@@ -99,6 +99,12 @@ public class MainMenu : MonoBehaviour
 		currentChar = 0;
 	}
 
+
+	public void BackToSelectMode()
+    {
+		onlineUI.SetActive(false);
+		selectMode.SetActive(true);
+	}
 	public void ChooseChar()
 	{
 		selectMode.SetActive(false);
@@ -253,6 +259,13 @@ public class MainMenu : MonoBehaviour
 		PhotonNetwork.JoinLobby();
 		onlineUI.SetActive(false);
 		availableRooms.SetActive(true);
+	}
+
+	public void BackToUIOnline()
+	{
+		//PhotonNetwork.JoinLobby(); 
+		onlineUI.SetActive(true);
+		availableRooms.SetActive(false);
 	}
 }
 

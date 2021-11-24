@@ -9,6 +9,8 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 	public GameObject quickStartButton;
 	public GameObject quickCancelButton;
 	public int roomSize;
+	public GameObject masterObject;
+	public GameObject UIOnline;
 
 	public override void OnConnectedToMaster()
 	{
@@ -41,6 +43,8 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 		RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte) roomSize };
 		string masterName = PlayerPrefs.GetString("name");
 		string nameRoom = masterName + "@" + randomRoomNumber;
+		masterObject.SetActive(true);
+		UIOnline.SetActive(false);
 		PhotonNetwork.CreateRoom(nameRoom, roomOptions);
 		Debug.Log(nameRoom);
 	}
