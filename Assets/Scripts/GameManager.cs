@@ -113,23 +113,12 @@ public class GameManager : MonoBehaviour
 			}
 		}
     }
-
     void Update()
     {	
 		_canMove = canMove;
 		_gameSpeed = GameManager.gameSpeed;
 
-		if (playersOnline.Length > 0 && PhotonNetwork.CurrentRoom.Players.Keys.Count > 1)
-		{
-			if (!gameStarted && Input.GetMouseButtonDown(0))
-			{
-				gameStarted = true;
-                canMove = true;
-				tapMessage.SetActive(false);
-
-			}
-		}
-		else if (playersOnline.Length == 0 && !gameStarted && Input.GetMouseButtonDown(0))
+		if (playersOnline.Length == 0 && !gameStarted && Input.GetMouseButtonDown(0))
 		{
 			gameStarted = true;
 			canMove = true;
@@ -176,7 +165,17 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-    #endregion
+	#endregion
+
+
+
+
+	public void StartOnlineGame()
+	{
+		gameStarted = true;
+		canMove = true;
+	}
+
 
 	public void ResetVariables()
 	{

@@ -986,12 +986,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a89a69fb6f9aa4d8eaff32a2006414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  photonView: {fileID: 0}
+  customPhotonView: {fileID: 0}
   players: []
   spawn: {fileID: 30436423}
   prefab: {fileID: 181248, guid: 23553e9e1c6e54e04ac8799f579f6f53, type: 3}
   otherPlayer: {fileID: 1195505677}
   hazardGenerator: {fileID: 5859993}
+  gameManager: {fileID: 598159376}
+  readyTimer: 10
 --- !u!4 &110976446
 Transform:
   m_ObjectHideFlags: 0
@@ -8392,7 +8394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &758317367
 RectTransform:
   m_ObjectHideFlags: 0

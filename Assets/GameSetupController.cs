@@ -6,7 +6,7 @@ using System.IO;
 public class GameSetupController : MonoBehaviourPun, IPunObservable
 {
 
-	public PhotonView photonView;
+	public PhotonView customPhotonView;
 
 	public List<GameObject> players;
 
@@ -18,30 +18,71 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 
 	public HazardGenerator hazardGenerator;
 
+	private int playersReady = 1;
 
-	// Start is called before the first frame update
-	void Awake()
+	[SerializeField]
+	private GameManager gameManager;
+
+
+	[SerializeField]
+	private float readyTimer = 10;
+
+	private int initialTime = 0;
+
+    void Start()
+    {
+		customPhotonView.RPC("Loaded", RpcTarget.All, PhotonNetwork.LocalPlayer, true);
+	}
+
+    void Update()
+    {
+        if(playersReady == PhotonNetwork.CountOfPlayers)
+        {
+			if (initialTime == 0)
+				initialTime = PhotonNetwork.ServerTimestamp;
+			
+			if(readyTimer <= 0) {
+				gameManager.StartOnlineGame();
+			}
+            else
+            {
+				readyTimer = 10 - ((PhotonNetwork.ServerTimestamp - initialTime) / 1_000);
+			}
+        }
+    }
+    // Start is called before the first frame update
+    void Awake()
 	{
 		players = new List<GameObject>();
-		photonView = gameObject.AddComponent<PhotonView>();
-		photonView.ViewID = 1;
+		customPhotonView = gameObject.AddComponent<PhotonView>();
+		customPhotonView.ViewID = 1;
 		CreatePlayer();
 		Player player = new Player() {
 			name = PlayerPrefs.GetString("name"),
 			charName = PlayerPrefs.GetString("SelectedChar")
 		};
 		//Send message
-		photonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
+		customPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
 	}
 
 	public void SendMessage(string message)
 	{
-		photonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, message);
+		customPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, message);
 	}
 
 	public void SendMessage(string type, string json)
 	{
-		photonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, type, json);
+		customPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, type, json);
+	}
+
+	[PunRPC]
+	void Loaded(Photon.Realtime.Player sender, bool loaded)
+    {
+		Debug.Log("request");
+
+		if (sender.IsLocal)
+			return;
+		playersReady += 1;
 	}
 
 	[PunRPC]
@@ -91,7 +132,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 					charName = PlayerPrefs.GetString("SelectedChar")
 				};
 				//Send message
-				photonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
+				customPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
 				break;
 			case "jump":
 				player = JsonUtility.FromJson<Player>(json);
