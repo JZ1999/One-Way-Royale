@@ -251,7 +251,7 @@ public class GameManager : MonoBehaviour
 				// code block
 				break;
 			case "object":
-				// code block
+				FindObjectOfType<HazardGenerator>().timer = 0;
 				break;
 		}
 	}
