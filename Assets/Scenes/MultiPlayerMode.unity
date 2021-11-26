@@ -21112,9 +21112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'you win
-
-    :D'
+  m_text: You win
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce9fb00bb3c3c0c40ab6e056bcabf20c, type: 2}
   m_sharedMaterial: {fileID: 1269572443699585552, guid: ce9fb00bb3c3c0c40ab6e056bcabf20c,
@@ -23133,9 +23131,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'you lose
-
-    :S'
+  m_text: You lose
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ffce64f5953f9204f98d99e08851b2a2, type: 2}
   m_sharedMaterial: {fileID: 1269572443699585552, guid: ffce64f5953f9204f98d99e08851b2a2,
