@@ -26,10 +26,13 @@ public class MainMenuOnline : MonoBehaviourPun, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (!isStartingGame && PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount == quickStartLobbyController.roomSize)
+        if (!isStartingGame && PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom != null)
         {
-            isStartingGame = true;
-            QuickStartRoomController.StartGame();
+            if (PhotonNetwork.CurrentRoom.PlayerCount == quickStartLobbyController.roomSize)
+            {
+                isStartingGame = true;
+                QuickStartRoomController.StartGame();
+            }
         }
     }
 
