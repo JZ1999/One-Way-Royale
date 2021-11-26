@@ -149,7 +149,6 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				}
 				break;
 			case "spawn_hazard":
-				Debug.Log(json);
 				Hazard hazard = JsonUtility.FromJson<Hazard>(json);
 				hazard.position.z -= 8.45f; // send to neighbor;
 				Instantiate(hazardGenerator.hazards[hazard.id], hazard.position, Quaternion.identity);
