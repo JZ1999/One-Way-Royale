@@ -12,7 +12,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 
 	public Transform spawn;
 
-	public GameObject prefab;
+	//public GameObject prefab;
 
 	public GameObject otherPlayer;
 
@@ -26,7 +26,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 	private GameManager gameManager;
 
 	[SerializeField]
-	private Vector3 rightLaneGenerator;
+	private GameObject rightLaneGenerator;
 
 
 	[SerializeField]
@@ -156,9 +156,9 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				Instantiate(hazardGenerator.hazards[hazard.id], hazard.position, Quaternion.identity);
 				break;
 			case "mud_debuff":
-				Vector3 laneTranform = rightLaneGenerator;
+				Vector3 laneTranform = rightLaneGenerator.transform.position;
 				laneTranform.z -= 8.45f;
-				Debug.Log(Instantiate(prefabMud, laneTranform, prefab.transform.rotation));
+				Debug.Log(Instantiate(prefabMud, laneTranform, prefabMud.transform.rotation));
 				break;
 		}	
 		

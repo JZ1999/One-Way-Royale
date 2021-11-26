@@ -989,13 +989,12 @@ MonoBehaviour:
   customPhotonView: {fileID: 0}
   players: []
   spawn: {fileID: 30436423}
-  prefab: {fileID: 181248, guid: 23553e9e1c6e54e04ac8799f579f6f53, type: 3}
   otherPlayer: {fileID: 1195505677}
   hazardGenerator: {fileID: 5859993}
   prefabMud: {fileID: 3414944282258145859, guid: 7293dd0ee91b12d458ca4ad1e2db9cfd,
     type: 3}
   gameManager: {fileID: 598159376}
-  rightLaneGenerator: {x: 0, y: 0, z: 0}
+  rightLaneGenerator: {fileID: 1168757445}
   readyTimer: 10
 --- !u!4 &110976446
 Transform:
@@ -9390,6 +9389,7 @@ MonoBehaviour:
   playerData:
     name: 
     charName: 
+    isMe: 0
   invincibleTime: 2
   mudDebuffSpeed: 2.64
   validedDistanceOnline: {fileID: 110976447}
@@ -16716,6 +16716,7 @@ MonoBehaviour:
   playerData:
     name: 
     charName: 
+    isMe: 0
   invincibleTime: 2
   mudDebuffSpeed: 2.64
   validedDistanceOnline: {fileID: 0}
