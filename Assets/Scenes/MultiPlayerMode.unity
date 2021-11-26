@@ -1027,7 +1027,7 @@ MonoBehaviour:
   distance: 0
   winText: {fileID: 1876407274}
   loseText: {fileID: 2060037805}
-  objective: 1000
+  objective: 1500
 --- !u!4 &112832024 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 422372, guid: 0de8523f5dff24a42840b50df2831ef0,
