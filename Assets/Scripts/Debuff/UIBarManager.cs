@@ -65,7 +65,7 @@ public class UIBarManager : MonoBehaviour
             if (debuffs.Length > tierDebuff)
                 nameDebuff = debuffs[tierDebuff].nameDebuff;
             else
-                nameDebuff = "mud";
+                nameDebuff = "object";
             tierBar = 0;
             tierDebuff = -1;
             uiIconDebuff.sprite = _uiIconDebuffSprite;
