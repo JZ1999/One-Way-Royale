@@ -228,13 +228,13 @@ public class GameManager : MonoBehaviour
 		{
 			int index = UnityEngine.Random.Range(0, playersOnline.Length);
 			GameObject focusPlayer = playersOnline[index];
-			FindObjectOfType<GameSetupController>().SendMessage(nameDebuff);
-			//FindObjectOfType<GameManager>().ReceivedDebuff(nameDebuff);
 
 #if UNITY_EDITOR
 			if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
 				FindObjectOfType<GameManager>().ReceivedDebuff(nameDebuff);
 #endif
+
+			FindObjectOfType<GameSetupController>().SendMessage(nameDebuff);
 		}
     }
 
