@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using System;
 
+
 public class GameManager : MonoBehaviour
 {
 
@@ -246,8 +247,8 @@ public class GameManager : MonoBehaviour
 			case "mud":
 				FindObjectOfType<HazardGenerator>().InstantiateObject(mud);
 				break;
-			case "coins":
-				FindObjectOfType<CoinGeneration>().setShouldApplyDebuff(true);
+			case "coin":
+				StartCoroutine(FindObjectOfType<CoinGeneration>().setShouldApplyDebuff(true));
 				break;
 			case "object":
 				FindObjectOfType<HazardGenerator>().timer = 0;
@@ -255,7 +256,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public float GetDistance()
+    public float GetDistance()
     {
 		return distanceCovered;
 
