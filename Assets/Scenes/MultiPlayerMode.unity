@@ -992,7 +992,10 @@ MonoBehaviour:
   prefab: {fileID: 181248, guid: 23553e9e1c6e54e04ac8799f579f6f53, type: 3}
   otherPlayer: {fileID: 1195505677}
   hazardGenerator: {fileID: 5859993}
+  prefabMud: {fileID: 3414944282258145859, guid: 7293dd0ee91b12d458ca4ad1e2db9cfd,
+    type: 3}
   gameManager: {fileID: 598159376}
+  rightLaneGenerator: {x: 0, y: 0, z: 0}
   readyTimer: 10
 --- !u!4 &110976446
 Transform:
@@ -3031,7 +3034,7 @@ PrefabInstance:
     - target: {fileID: 6103311426220887001, guid: 9bd9c8023bbebbf4ba8ec764384ad9c5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.680052
+      value: -6.701226
       objectReference: {fileID: 0}
     - target: {fileID: 6103311426220887001, guid: 9bd9c8023bbebbf4ba8ec764384ad9c5,
         type: 3}
@@ -3041,12 +3044,12 @@ PrefabInstance:
     - target: {fileID: 6103311426220887001, guid: 9bd9c8023bbebbf4ba8ec764384ad9c5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.460714
+      value: 15.261349
       objectReference: {fileID: 0}
     - target: {fileID: 6103311426220887001, guid: 9bd9c8023bbebbf4ba8ec764384ad9c5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.61454505
+      value: 0.48182034
       objectReference: {fileID: 0}
     - target: {fileID: 6103311426220887001, guid: 9bd9c8023bbebbf4ba8ec764384ad9c5,
         type: 3}
@@ -3056,7 +3059,7 @@ PrefabInstance:
     - target: {fileID: 6103311426220887001, guid: 9bd9c8023bbebbf4ba8ec764384ad9c5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.78888184
+      value: 0.87627006
       objectReference: {fileID: 0}
     - target: {fileID: 6103311426220887001, guid: 9bd9c8023bbebbf4ba8ec764384ad9c5,
         type: 3}
@@ -3071,7 +3074,7 @@ PrefabInstance:
     - target: {fileID: 6103311426220887001, guid: 9bd9c8023bbebbf4ba8ec764384ad9c5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 104.162
+      value: 122.39101
       objectReference: {fileID: 0}
     - target: {fileID: 6103311426220887001, guid: 9bd9c8023bbebbf4ba8ec764384ad9c5,
         type: 3}
@@ -6172,6 +6175,7 @@ MonoBehaviour:
   _playersOnline:
   - {fileID: 850285890}
   mud: {fileID: 3414944282258145859, guid: 7293dd0ee91b12d458ca4ad1e2db9cfd, type: 3}
+  rightLaneGenerator: {x: 0, y: 0, z: 0}
   deathScreen: {fileID: 1563312297}
   deathScreenCoins: {fileID: 1357297671}
   deathScreenDistance: {fileID: 1970241240}

@@ -49,6 +49,9 @@ public class GameManager : MonoBehaviour
 	static public GameObject[] playersOnline;
 	public GameObject mud;
 
+	[SerializeField]
+	private Vector3 rightLaneGenerator;
+
 	//Death screen variables
 	public GameObject deathScreen;
 	static public GameObject _deathScreen;
@@ -233,8 +236,7 @@ public class GameManager : MonoBehaviour
 			if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
 				FindObjectOfType<GameManager>().RecievedDebuff(nameDebuff);
 #endif
-
-        }
+		}
     }
 
 	public void RecievedDebuff(string nameDebuff)
@@ -243,6 +245,7 @@ public class GameManager : MonoBehaviour
 		{
 			case "mud":
 				FindObjectOfType<HazardGenerator>().InstantiateObject(mud);
+
 				break;
 			case "coins":
 				// code block

@@ -20,8 +20,13 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 
 	private int playersReady = 1;
 
+	public GameObject prefabMud;
+
 	[SerializeField]
 	private GameManager gameManager;
+
+	[SerializeField]
+	private Vector3 rightLaneGenerator;
 
 
 	[SerializeField]
@@ -146,8 +151,13 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 			case "spawn_hazard":
 				Debug.Log(json);
 				Hazard hazard = JsonUtility.FromJson<Hazard>(json);
-				hazard.position.z -= 8.45f;
+				hazard.position.z -= 8.45f; // send to neighbor;
 				Instantiate(hazardGenerator.hazards[hazard.id], hazard.position, Quaternion.identity);
+				break;
+			case "mud_debuff":
+				Vector3 laneTranform = rightLaneGenerator;
+				laneTranform.z -= 8.45f;
+				Instantiate(prefabMud, laneTranform, prefab.transform.rotation);
 				break;
 		}			
 	}
