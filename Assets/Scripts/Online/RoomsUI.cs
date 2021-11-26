@@ -45,19 +45,15 @@ public class RoomsUI : MonoBehaviourPunCallbacks, IPunCallbacks
 
     override public void OnJoinedLobby()
     {
-        Debug.Log(42);
         
     }
 
     private void OnLevelWasLoaded(int level)
     {
-        Debug.Log(level);
     }
 
     override public void OnLeftLobby()
     {
-        Debug.Log(1);
-        
     }
 
     override public void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -67,44 +63,30 @@ public class RoomsUI : MonoBehaviourPunCallbacks, IPunCallbacks
 
     override public void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)
     {
-        Debug.Log(23);
-        
     }
 
     override public void OnConnected()
     {
-        Debug.Log(17);
-        
     }
 
     override public void OnConnectedToMaster()
     {
-        Debug.Log(16);
-        
     }
 
     override public void OnDisconnected(DisconnectCause cause)
     {
-        Debug.Log(cause);
-        
     }
 
     override public void OnRegionListReceived(RegionHandler regionHandler)
     {
-        Debug.Log(14 + " " +regionHandler.EnabledRegions);
-        
     }
 
     override public void OnCustomAuthenticationResponse(Dictionary<string, object> data)
     {
-        Debug.Log(13);
-        
     }
 
     override public void OnCustomAuthenticationFailed(string debugMessage)
     {
-        Debug.Log(12);
-        
     }
     
     public void OnOwnershipRequest(PhotonView targetView, Photon.Realtime.Player requestingPlayer)
