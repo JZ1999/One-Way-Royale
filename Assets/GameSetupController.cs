@@ -157,7 +157,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 			case "mud_debuff":
 				Vector3 laneTranform = rightLaneGenerator;
 				laneTranform.z -= 8.45f;
-				Instantiate(prefabMud, laneTranform, prefab.transform.rotation);
+				Debug.Log(Instantiate(prefabMud, laneTranform, prefab.transform.rotation));
 				break;
 		}			
 	}
