@@ -146,7 +146,6 @@ public class GameManager : MonoBehaviour
 
 			speedMultiplier = Mathf.MoveTowards(speedMultiplier, targetSpeedMultiplier, acceleration * Time.deltaTime);
 			gameSpeed = gameSpeedStore * speedMultiplier;
-			Debug.Log(gameSpeed);
 
 			//Updating UI
 			distanceCovered += Time.deltaTime * gameSpeed;
@@ -265,7 +264,7 @@ public class GameManager : MonoBehaviour
 	public IEnumerator GoToMainMenu()
 	{
 		yield return new WaitForSeconds(5);
-		PhotonNetwork.LeaveRoom();
 		SceneManager.LoadScene(0);
+		PhotonNetwork.LeaveRoom();
 	}
 }
