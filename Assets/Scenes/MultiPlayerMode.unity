@@ -8643,6 +8643,8 @@ MonoBehaviour:
   - {fileID: 934553168574152964, guid: bc98c204796fdeb41aa50b7b96288775, type: 3}
   - {fileID: 3809228589940544810, guid: 5c1c567dc67a3ef48be93c99483bed48, type: 3}
   topPosition: {fileID: 1142755754}
+  debuffAnimation: {fileID: 9100000, guid: 9ee5de5339cdcdd48ab3fd056e85116d, type: 2}
+  normalAnimation: {fileID: 9100000, guid: e2a3f0aff9b65434f98e8e32a987f262, type: 2}
 --- !u!4 &762954418
 Transform:
   m_ObjectHideFlags: 0
