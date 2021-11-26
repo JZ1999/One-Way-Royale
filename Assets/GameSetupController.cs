@@ -43,7 +43,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 
     void Update()
     {
-		if (playersReady == PhotonNetwork.CurrentRoom.PlayerCount)
+		if (playersReady == PhotonNetwork.CurrentRoom?.PlayerCount)
         {
 			if (initialTime == 0)
 				initialTime = PhotonNetwork.ServerTimestamp;
