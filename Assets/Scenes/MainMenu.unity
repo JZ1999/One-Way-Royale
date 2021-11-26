@@ -406,9 +406,9 @@ RectTransform:
   - {fileID: 29467477}
   - {fileID: 458097193}
   - {fileID: 1328640686}
-  - {fileID: 2033348985}
   - {fileID: 2065695714}
   - {fileID: 1016601101}
+  - {fileID: 2033348985}
   - {fileID: 2072737977411779901}
   - {fileID: 115144205}
   - {fileID: 1986329259}
@@ -2783,7 +2783,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 731895261}
   m_OnClick:
     m_PersistentCalls:
@@ -3988,7 +3988,7 @@ PrefabInstance:
     - target: {fileID: 5252896259987611658, guid: d7d1e3945d2261e42816b2347172f374,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5252896259987611658, guid: d7d1e3945d2261e42816b2347172f374,
         type: 3}
@@ -7112,7 +7112,7 @@ RectTransform:
   m_Children:
   - {fileID: 948694746}
   m_Father: {fileID: 68137932}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7451,7 +7451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2065695714
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7465,7 +7465,7 @@ RectTransform:
   m_Children:
   - {fileID: 1926555739}
   m_Father: {fileID: 68137932}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
