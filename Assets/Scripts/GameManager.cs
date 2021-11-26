@@ -246,7 +246,7 @@ public class GameManager : MonoBehaviour
 			case "mud":
 				FindObjectOfType<HazardGenerator>().InstantiateObject(mud);
 				break;
-			case "coins":
+			case "coin":
 				FindObjectOfType<CoinGeneration>().setShouldApplyDebuff(true);
 				break;
 			case "object":
