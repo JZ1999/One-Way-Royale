@@ -265,7 +265,7 @@ public class GameManager : MonoBehaviour
 	public IEnumerator GoToMainMenu()
 	{
 		PhotonNetwork.LeaveRoom();
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(6);
 		SceneManager.LoadScene(0);
 	}
 }
