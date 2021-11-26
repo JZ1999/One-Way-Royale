@@ -101,7 +101,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 		
 		if (sender.IsLocal)
 			return;
-		FindObjectOfType<GameManager>().RecievedDebuff(debuff);
+		FindObjectOfType<GameManager>().ReceivedDebuff(debuff);
 	}
 
 	[PunRPC]
@@ -139,6 +139,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				};
 				//Send message
 				customPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
+				Destroy(playerObject.GetComponent<PlayerMovement>());
 				break;
 			case "jump":
 				player = JsonUtility.FromJson<Player>(json);
@@ -159,7 +160,8 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				laneTranform.z -= 8.45f;
 				Debug.Log(Instantiate(prefabMud, laneTranform, prefab.transform.rotation));
 				break;
-		}			
+		}	
+		
 	}
 
 	private void CreatePlayer()

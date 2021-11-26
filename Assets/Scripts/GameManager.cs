@@ -229,17 +229,18 @@ public class GameManager : MonoBehaviour
 			int index = UnityEngine.Random.Range(0, playersOnline.Length);
 			GameObject focusPlayer = playersOnline[index];
 			FindObjectOfType<GameSetupController>().SendMessage(nameDebuff);
-			//FindObjectOfType<GameManager>().RecievedDebuff(nameDebuff);
+			//FindObjectOfType<GameManager>().ReceivedDebuff(nameDebuff);
 
 #if UNITY_EDITOR
 			if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-				FindObjectOfType<GameManager>().RecievedDebuff(nameDebuff);
+				FindObjectOfType<GameManager>().ReceivedDebuff(nameDebuff);
 #endif
 		}
     }
 
-	public void RecievedDebuff(string nameDebuff)
+	public void ReceivedDebuff(string nameDebuff)
     {
+		Debug.Log(nameDebuff);
 		switch (nameDebuff)
 		{
 			case "mud":
