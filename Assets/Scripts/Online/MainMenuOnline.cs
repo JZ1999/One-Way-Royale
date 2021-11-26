@@ -47,8 +47,6 @@ public class MainMenuOnline : MonoBehaviourPun, IPunObservable
     {
         if (sender.IsLocal)
             return;
-        Debug.Log(string.Format("{0} {1} {2} {3} {4} {5}", sender.IsLocal, sender.UserId, sender.IsMasterClient, sender.NickName, sender.HasRejoined, sender.ActorNumber));
-        Debug.LogFormat("{0} {1}", type, json);
         switch (type)
         {
             case "player_ready":

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -118,7 +119,7 @@ public class GameManager : MonoBehaviour
 		_canMove = canMove;
 		_gameSpeed = GameManager.gameSpeed;
 
-		if (playersOnline.Length == 0 && !gameStarted && Input.GetMouseButtonDown(0))
+		if (PhotonNetwork.CurrentRoom?.PlayerCount == null && !gameStarted && Input.GetMouseButtonDown(0))
 		{
 			gameStarted = true;
 			canMove = true;
@@ -134,7 +135,6 @@ public class GameManager : MonoBehaviour
 			{
 				increaseSpeedTimer = timeToIncreaseSpeed;
 
-				//gameSpeed *= speedMultiplier;
 				targetSpeedMultiplier *= speedIncreaseAmount;
 
 				timeToIncreaseSpeed *= .97f;
@@ -143,6 +143,7 @@ public class GameManager : MonoBehaviour
 
 			speedMultiplier = Mathf.MoveTowards(speedMultiplier, targetSpeedMultiplier, acceleration * Time.deltaTime);
 			gameSpeed = gameSpeedStore * speedMultiplier;
+			Debug.Log(gameSpeed);
 
 			//Updating UI
 			distanceCovered += Time.deltaTime * gameSpeed;
@@ -151,7 +152,7 @@ public class GameManager : MonoBehaviour
 
 		collectedCoin = false;
 
-		if (dead)
+		if (dead && !PhotonNetwork.IsConnected)
 		{
 			
 			if (deathScreenDelay <= 0)
@@ -223,7 +224,7 @@ public class GameManager : MonoBehaviour
 	static public void ApplyDebuff(string nameDebuff) {
 		if(nameDebuff != "none")
 		{
-			int index = Random.Range(0, playersOnline.Length);
+			int index = UnityEngine.Random.Range(0, playersOnline.Length);
 			GameObject focusPlayer = playersOnline[index];
 			FindObjectOfType<GameSetupController>().SendMessage(nameDebuff);
 			//FindObjectOfType<GameManager>().RecievedDebuff(nameDebuff);
@@ -256,5 +257,12 @@ public class GameManager : MonoBehaviour
     {
 		return distanceCovered;
 
+	}
+
+	public IEnumerator GoToMainMenu()
+	{
+		yield return new WaitForSeconds(5);
+		PhotonNetwork.LeaveRoom();
+		SceneManager.LoadScene(0);
 	}
 }

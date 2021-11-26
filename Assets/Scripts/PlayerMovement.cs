@@ -91,7 +91,8 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if (other.CompareTag("Hazards"))
 			{
-				validedDistanceOnline.YouLose();
+				if(PhotonNetwork.IsConnected)
+					validedDistanceOnline.YouLose();
 				GameManager.HazardHit();
 #if !UNITY_EDITOR
 				

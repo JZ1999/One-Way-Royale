@@ -52,7 +52,6 @@ public class HazardGenerator : MonoBehaviour
     }
 	public void InstantiateObject(GameObject obj)
     {
-		Debug.Log(obj);
 		Instantiate(obj, transform.position, obj.transform.rotation);
 	}
 

@@ -28,11 +28,18 @@ public class ValidedDistanceOnline : MonoBehaviour
         {
             Time.timeScale = 0f;
             winText.SetActive(true);
-        }
+			endGame();
+		}
     }
 
     public void YouLose()
     {
         loseText.SetActive(true);
+		endGame();
     }
+
+	public void endGame()
+	{
+		StartCoroutine(gameManager.GoToMainMenu());
+	}
 }

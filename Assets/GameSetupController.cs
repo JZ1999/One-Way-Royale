@@ -29,6 +29,8 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 
 	private int initialTime = 0;
 
+	private bool startedOnlineGame = false;
+
     void Start()
     {
 		customPhotonView.RPC("Loaded", RpcTarget.All, PhotonNetwork.LocalPlayer, true);
@@ -41,8 +43,9 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 			if (initialTime == 0)
 				initialTime = PhotonNetwork.ServerTimestamp;
 			
-			if(readyTimer <= 0) {
+			if(readyTimer <= 0 && !startedOnlineGame) {
 				gameManager.StartOnlineGame();
+				startedOnlineGame = true;
 			}
             else
             {
@@ -92,8 +95,6 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 		
 		if (sender.IsLocal)
 			return;
-		Debug.Log(string.Format("{0} {1} {2} {3} {4} {5}", sender.IsLocal, sender.UserId, sender.IsMasterClient, sender.NickName, sender.HasRejoined, sender.ActorNumber));
-		Debug.Log(debuff);
 		FindObjectOfType<GameManager>().RecievedDebuff(debuff);
 	}
 
@@ -102,8 +103,6 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 	{
 		if (sender.IsLocal)
 			return;
-		Debug.Log(string.Format("{0} {1} {2} {3} {4} {5}", sender.IsLocal, sender.UserId, sender.IsMasterClient, sender.NickName, sender.HasRejoined, sender.ActorNumber));
-		Debug.LogFormat("{0} {1}",type ,json);
 		Player player;
 		switch (type)
 		{
@@ -176,7 +175,6 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 
 	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 	{
-		Debug.Log(stream);
-		Debug.Log(info);
+		
 	}
 }
