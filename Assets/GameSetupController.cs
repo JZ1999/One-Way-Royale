@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 
 public class GameSetupController : MonoBehaviourPun, IPunObservable
 {
@@ -32,6 +33,9 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 	[SerializeField]
 	private float readyTimer = 10;
 
+	[SerializeField]
+	private GameObject uiReadyTimer;
+
 	private int initialTime = 0;
 
 	private bool startedOnlineGame = false;
@@ -49,12 +53,14 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				initialTime = PhotonNetwork.ServerTimestamp;
 			
 			if(readyTimer <= 0 && !startedOnlineGame) {
+				uiReadyTimer.SetActive(false);
 				gameManager.StartOnlineGame();
 				startedOnlineGame = true;
 			}
             else
             {
 				readyTimer = 10 - ((PhotonNetwork.ServerTimestamp - initialTime) / 1_000);
+				uiReadyTimer.GetComponentsInChildren<TMP_Text>()[0].text = readyTimer + "";
 			}
         }
     }
