@@ -250,7 +250,7 @@ public class GameManager : MonoBehaviour
 				FindObjectOfType<CoinGeneration>().setShouldApplyDebuff(true);
 				break;
 			case "object":
-				// code block
+				FindObjectOfType<HazardGenerator>().timer = 0;
 				break;
 		}
 	}
