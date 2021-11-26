@@ -68,7 +68,8 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 		CreatePlayer();
 		Player player = new Player() {
 			name = PlayerPrefs.GetString("name"),
-			charName = PlayerPrefs.GetString("SelectedChar")
+			charName = PlayerPrefs.GetString("SelectedChar"),
+			isMe = false
 		};
 		//Send message
 		customPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
@@ -171,7 +172,8 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 		Player playerData = new Player()
 		{
 			name = PlayerPrefs.GetString("name"),
-			charName = PlayerPrefs.GetString("SelectedChar")
+			charName = PlayerPrefs.GetString("SelectedChar"),
+			isMe = true
 		};
 		GameObject player = Instantiate(Resources.Load(Path.Combine("PhotonPrefabs", playerData.charName)), spawn.position, Quaternion.identity) as GameObject;
 

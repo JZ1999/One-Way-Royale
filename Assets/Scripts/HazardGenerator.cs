@@ -53,8 +53,8 @@ public class HazardGenerator : MonoBehaviour
 	public void InstantiateObject(GameObject obj)
     {
 		Instantiate(obj, transform.position, obj.transform.rotation);
-		if(obj.name == "mud")
-			photonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "mud_debuff");
+		if(obj.CompareTag("Mud"))
+			photonView.RPC(" SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "mud_debuff");
 	}
 
 	public void UpdateTimeRespawn(float fix, bool div)

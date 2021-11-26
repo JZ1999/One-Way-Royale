@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if(invincibleTimer <= 0)
+		if(invincibleTimer <= 0 && playerData.isMe)
 		{
 			if (other.CompareTag("Hazards"))
 			{
@@ -131,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (invincibleTimer <= 0)
+		if (invincibleTimer <= 0 && playerData.isMe)
 		{
 			if (other.CompareTag("Mud"))
 			{
