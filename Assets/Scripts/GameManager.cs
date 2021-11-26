@@ -227,9 +227,14 @@ public class GameManager : MonoBehaviour
 			GameObject focusPlayer = playersOnline[index];
 			FindObjectOfType<GameSetupController>().SendMessage(nameDebuff);
 			//FindObjectOfType<GameManager>().RecievedDebuff(nameDebuff);
-			//focusPlayer.GetComponent<GameManager>().RecievedDebuff(nameDebuff);
-		}		
-	}
+
+#if UNITY_EDITOR
+			if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+				FindObjectOfType<GameManager>().RecievedDebuff(nameDebuff);
+#endif
+
+        }
+    }
 
 	public void RecievedDebuff(string nameDebuff)
     {

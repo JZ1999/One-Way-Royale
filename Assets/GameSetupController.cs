@@ -36,7 +36,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 
     void Update()
     {
-        if(playersReady == PhotonNetwork.CountOfPlayers)
+		if (playersReady == PhotonNetwork.CurrentRoom.PlayerCount)
         {
 			if (initialTime == 0)
 				initialTime = PhotonNetwork.ServerTimestamp;
@@ -50,6 +50,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 			}
         }
     }
+
     // Start is called before the first frame update
     void Awake()
 	{

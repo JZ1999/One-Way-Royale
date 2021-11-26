@@ -10,6 +10,8 @@ public class MainMenuOnline : MonoBehaviourPun, IPunObservable
     public int players;
     public int actuallyReady;
     public QuickStartRoomController QuickStartRoomController;
+    public QuickStartLobbyController quickStartLobbyController;
+    private bool isStartingGame = false;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         
@@ -24,7 +26,11 @@ public class MainMenuOnline : MonoBehaviourPun, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        
+        if (!isStartingGame && PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom.PlayerCount == quickStartLobbyController.roomSize)
+        {
+            isStartingGame = true;
+            QuickStartRoomController.StartGame();
+        }
     }
 
 
@@ -43,7 +49,7 @@ public class MainMenuOnline : MonoBehaviourPun, IPunObservable
         switch (type)
         {
             case "player_ready":
-                QuickStartRoomController.StartGame();
+                
                 break;
         }
     }
