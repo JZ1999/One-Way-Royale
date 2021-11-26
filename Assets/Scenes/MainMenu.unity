@@ -6897,7 +6897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quickStartButton: {fileID: 87164094}
   quickCancelButton: {fileID: 2015985714}
-  roomSize: 2
+  roomSize: 1
   masterObject: {fileID: 859597326}
   UIOnline: {fileID: 458097192}
 --- !u!1 &1972505851 stripped
