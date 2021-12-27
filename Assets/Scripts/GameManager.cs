@@ -268,4 +268,12 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds(6);
 		SceneManager.LoadScene(0);
 	}
+
+	private void OnApplicationPause(bool pause)
+	{
+		if(pause)
+		{
+			Time.timeScale = 0;
+		}
+	}
 }
