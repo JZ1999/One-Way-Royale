@@ -6,8 +6,11 @@ using TMPro;
 
 public class GameSetupController : MonoBehaviourPun, IPunObservable
 {
+	[SerializeField]
+	[Range(3, 15)]
+    public int _readyTimer = 10;
 
-	public PhotonView customPhotonView;
+    public PhotonView customPhotonView;
 
 	public List<GameObject> players;
 
@@ -31,7 +34,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 
 
 	[SerializeField]
-	private float readyTimer = 10;
+	private float readyTimer;
 
 	[SerializeField]
 	private GameObject uiReadyTimer;
@@ -42,6 +45,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 
     void Start()
     {
+		readyTimer = _readyTimer;
 		customPhotonView.RPC("Loaded", RpcTarget.All, PhotonNetwork.LocalPlayer, true);
 	}
 
@@ -59,7 +63,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 			}
             else
             {
-				readyTimer = 10 - ((PhotonNetwork.ServerTimestamp - initialTime) / 1_000);
+				readyTimer = _readyTimer - ((PhotonNetwork.ServerTimestamp - initialTime) / 1_000);
 				uiReadyTimer.GetComponentsInChildren<TMP_Text>()[0].text = readyTimer + "";
 			}
         }
