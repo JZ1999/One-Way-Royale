@@ -55,6 +55,11 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 		CreateRoom();
 	}
 
+	public void JoinRandomOrCreateRoom()
+    {
+		PhotonNetwork.JoinRandomRoom();
+	}
+
 	public void QuickCancel()
 	{
 		quickCancelButton.SetActive(false);
