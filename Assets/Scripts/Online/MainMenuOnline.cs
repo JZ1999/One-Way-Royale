@@ -1,7 +1,6 @@
 ﻿using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuOnline : MonoBehaviourPun, IPunObservable
 {
@@ -12,6 +11,7 @@ public class MainMenuOnline : MonoBehaviourPun, IPunObservable
     public QuickStartRoomController QuickStartRoomController;
     public QuickStartLobbyController quickStartLobbyController;
     private bool isStartingGame = false;
+	private int playerCount = -1;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         
@@ -28,6 +28,13 @@ public class MainMenuOnline : MonoBehaviourPun, IPunObservable
     {
         if (!isStartingGame && PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom != null)
         {
+
+			if(playerCount != PhotonNetwork.CurrentRoom.PlayerCount)
+			{
+				playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+				UICapacity.GetComponentInChildren<Text>().text = playerCount + "/" + quickStartLobbyController.roomSize;
+			}
+
             if (PhotonNetwork.CurrentRoom.PlayerCount == quickStartLobbyController.roomSize)
             {
                 isStartingGame = true;

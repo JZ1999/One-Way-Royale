@@ -625,7 +625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 14.5130005, y: -492.76}
+  m_AnchoredPosition: {x: 14.512939, y: -492.76}
   m_SizeDelta: {x: -113.22, y: -89.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &63128601
@@ -7715,8 +7715,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.0141863e-38, y: 1.601278e+34, z: 7.7766644e+31,
-    w: 4.0002788e+9}
+  m_BoundingSphereOverride: {x: 6.35e-43, y: 2.549e-41, z: 0, w: -1}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -9393,6 +9392,7 @@ MonoBehaviour:
     name: 
     charName: 
     isMe: 0
+    actorNumber: 0
   invincibleTime: 2
   mudDebuffSpeed: 2.64
   validedDistanceOnline: {fileID: 110976447}
@@ -9954,7 +9954,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 14.5130005, y: -492.76}
+  m_AnchoredPosition: {x: 14.512939, y: -492.76}
   m_SizeDelta: {x: -113.22, y: -89.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &881170565
@@ -16720,6 +16720,7 @@ MonoBehaviour:
     name: 
     charName: 
     isMe: 0
+    actorNumber: 0
   invincibleTime: 2
   mudDebuffSpeed: 2.64
   validedDistanceOnline: {fileID: 0}
@@ -17664,7 +17665,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 14.5130005, y: -4.0999756}
+  m_AnchoredPosition: {x: 14.512939, y: -4.1000977}
   m_SizeDelta: {x: -113.22, y: -89.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1563312299
