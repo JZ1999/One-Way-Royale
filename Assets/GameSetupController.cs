@@ -15,7 +15,9 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 
 	//public GameObject prefab;
 
-	public GameObject otherPlayer;
+	public GameObject otherPlayerLeft;
+	public GameObject otherPlayerRight;
+	public GameObject playersObjectPool;
 
 	public HazardGenerator hazardGenerator;
 
@@ -75,7 +77,8 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 		Player player = new Player() {
 			name = PlayerPrefs.GetString("name"),
 			charName = PlayerPrefs.GetString("SelectedChar"),
-			isMe = false
+			isMe = false,
+			actorNumber = PhotonNetwork.LocalPlayer.ActorNumber
 		};
 		//Send message
 		customPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
@@ -129,9 +132,12 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 					}
 				}
 
-				GameObject playerObject = Instantiate(Resources.Load(Path.Combine("PhotonPrefabs", player.charName)), otherPlayer.transform.position, otherPlayer.transform.rotation) as GameObject;
+				Transform otherPlayer = DecideLeftOrRight(player.actorNumber);
+
+				GameObject playerObject = Instantiate(Resources.Load(Path.Combine("PhotonPrefabs", player.charName)), otherPlayer.position, otherPlayer.transform.rotation) as GameObject;
+
 				players.Add(playerObject);
-				playerObject.transform.parent = otherPlayer.transform;
+				playerObject.transform.parent = otherPlayer;
 				Destroy(playerObject.GetComponent<Rigidbody>());
 
 				PlayerMovement playerMovement = playerObject.GetComponentInParent<PlayerMovement>();
@@ -148,6 +154,11 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				//Send message
 				customPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
 				Destroy(playerObject.GetComponent<PlayerMovement>());
+
+				if(otherPlayer == playersObjectPool.transform)
+				{
+					playerObject.SetActive(false);
+				}
 				break;
 			case "jump":
 				player = JsonUtility.FromJson<Player>(json);
@@ -172,6 +183,20 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 		
 	}
 
+	private Transform DecideLeftOrRight(int playerActorNumber)
+	{
+		if((PhotonNetwork.LocalPlayer.ActorNumber - playerActorNumber) == 1)
+		{
+			return otherPlayerLeft.transform;
+		}
+		else if ((PhotonNetwork.LocalPlayer.ActorNumber -  playerActorNumber) == -1)
+		{
+			return otherPlayerRight.transform;
+		}
+
+		return playersObjectPool.transform;
+	}
+
 	private void CreatePlayer()
 	{
 		Debug.Log("Creating Player");
@@ -181,7 +206,8 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 		{
 			name = PlayerPrefs.GetString("name"),
 			charName = PlayerPrefs.GetString("SelectedChar"),
-			isMe = true
+			isMe = true,
+			actorNumber = PhotonNetwork.LocalPlayer.ActorNumber
 		};
 		GameObject player = Instantiate(Resources.Load(Path.Combine("PhotonPrefabs", playerData.charName)), spawn.position, Quaternion.identity) as GameObject;
 

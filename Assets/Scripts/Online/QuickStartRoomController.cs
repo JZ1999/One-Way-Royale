@@ -22,6 +22,7 @@ public class QuickStartRoomController : MonoBehaviourPunCallbacks
 	public override void OnJoinedRoom()
 	{
 		base.OnJoinedRoom();
+		Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber);
 		Debug.Log("Joined room");
 
 		if (!PhotonNetwork.IsMasterClient)
