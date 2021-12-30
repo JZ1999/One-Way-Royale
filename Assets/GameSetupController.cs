@@ -145,8 +145,10 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				player = new Player()
 				{
 					name = PlayerPrefs.GetString("name"),
-					charName = PlayerPrefs.GetString("SelectedChar")
+					charName = PlayerPrefs.GetString("SelectedChar"),
+					actorNumber = PhotonNetwork.LocalPlayer.ActorNumber
 				};
+				Debug.Log(player.actorNumber);
 				//Send message
 				customPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
 				Destroy(playerObject.GetComponent<PlayerMovement>());
