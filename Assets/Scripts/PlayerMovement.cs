@@ -175,7 +175,8 @@ public class PlayerMovement : MonoBehaviour
 			Player player = new Player()
 			{
 				name = PlayerPrefs.GetString("name"),
-				charName = PlayerPrefs.GetString("SelectedChar")
+				charName = PlayerPrefs.GetString("SelectedChar"),
+				actorNumber = PhotonNetwork.LocalPlayer.ActorNumber
 			};
 			PhotonView playerPhotonView = gameSetup.GetComponent<PhotonView>();
 			playerPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "jump", JsonUtility.ToJson(player));
