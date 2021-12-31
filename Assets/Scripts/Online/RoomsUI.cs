@@ -10,7 +10,8 @@ public class RoomsUI : MonoBehaviourPunCallbacks, IPunCallbacks
     // Start is called before the first frame update
     public GameObject lobbyGrid;
     public GameObject lobbyButton;
-    public GameObject NetworkManager;
+    public GameObject masterObject;
+    public GameObject availableRooms;
 
     void Start()
     {
@@ -39,7 +40,10 @@ public class RoomsUI : MonoBehaviourPunCallbacks, IPunCallbacks
             TMPro.TextMeshProUGUI[] buttonsText = newbutton.GetComponentsInChildren<TMPro.TextMeshProUGUI>();
             buttonsText[1].text = room.Name.Split('@')[0];
             buttonsText[0].text = room.PlayerCount +"/" + room.MaxPlayers;
-            newbutton.GetComponent<Button>().onClick.AddListener(delegate { PhotonNetwork.JoinRoom(room.Name); });
+            newbutton.GetComponent<Button>().onClick.AddListener(delegate { PhotonNetwork.JoinRoom(room.Name);
+                masterObject.SetActive(true);
+                availableRooms.SetActive(false);
+            });
         }
     }
 

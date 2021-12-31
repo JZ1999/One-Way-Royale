@@ -463,7 +463,8 @@ MonoBehaviour:
   lobbyGrid: {fileID: 353994720}
   lobbyButton: {fileID: 6805306968148259609, guid: 96b973da11606bf4084082d3e272623a,
     type: 3}
-  NetworkManager: {fileID: 0}
+  masterObject: {fileID: 859597326}
+  availableRooms: {fileID: 611495940}
 --- !u!1 &76809295
 GameObject:
   m_ObjectHideFlags: 0
