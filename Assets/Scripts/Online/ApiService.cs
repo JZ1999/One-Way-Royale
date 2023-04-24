@@ -8,7 +8,7 @@ using System.Net.Http.Headers;
 
 public class ApiService
 {
-    public string url = "http://onewayapi.herokuapp.com/api/v1/";
+    public string url = "http://one-way-game.herokuapp.com/api/v1/";
     public static HttpClient client = new HttpClient();
 
 
