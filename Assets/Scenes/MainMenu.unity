@@ -2216,7 +2216,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.7, y: -544}
+  m_AnchoredPosition: {x: 7.7, y: -543}
   m_SizeDelta: {x: 997.3, y: 462.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &602417080
@@ -7072,7 +7072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quickStartButton: {fileID: 87164094}
   quickCancelButton: {fileID: 2015985714}
-  roomSize: 3
+  roomSize: 2
   masterObject: {fileID: 859597326}
   UIOnline: {fileID: 458097192}
 --- !u!1 &1972505851 stripped

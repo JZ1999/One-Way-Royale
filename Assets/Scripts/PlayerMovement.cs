@@ -92,7 +92,17 @@ public class PlayerMovement : MonoBehaviour
 			if (other.CompareTag("Hazards"))
 			{
 				if(PhotonNetwork.IsConnected)
+                {
 					validedDistanceOnline?.YouLose();
+					Player player = new Player()
+					{
+						name = PlayerPrefs.GetString("name"),
+						charName = PlayerPrefs.GetString("SelectedChar"),
+						actorNumber = PhotonNetwork.LocalPlayer.ActorNumber
+					};
+					Debug.Log(JsonUtility.ToJson(player));
+					gameSetup.SendMessage("player_lost", JsonUtility.ToJson(player));
+				}
 				GameManager.HazardHit();
 #if !UNITY_EDITOR
 				

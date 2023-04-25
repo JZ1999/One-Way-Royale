@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
+using System.Collections;
 
 public class GameSetupController : MonoBehaviourPun, IPunObservable
 {
@@ -122,6 +123,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 	{
 		if (sender.IsLocal)
 			return;
+		Debug.Log(sender);
 		Player player;
 		switch (type)
 		{
@@ -179,17 +181,33 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				Debug.Log(Instantiate(prefabMud, laneTranform, prefabMud.transform.rotation));
 				break;
 			case "player_lost":
+				Debug.Log(json);
 				player = JsonUtility.FromJson<Player>(json);
 				foreach (GameObject p in players)
 				{
 					if (p.GetComponentInParent<PlayerMovement>().playerData.name == player.name)
 					{
-						Destroy(p);
+						Rigidbody rb = p.AddComponent<Rigidbody>();
+						rb.constraints = RigidbodyConstraints.None;
+
+						float rand_x = Random.Range(GameManager.gameSpeed / 2, -GameManager.gameSpeed / 2);
+						rb.velocity = new Vector3(rand_x, 2.5f, -GameManager.gameSpeed / 2f);
+
+						p.GetComponentInParent<PlayerMovement>().theAM.sfxHit.Play();
+
+						StartCoroutine(RemovePlayerAfterSeconds(2, p));
 					}
 				}
 				break;
 		}	
 		
+	}
+
+	public IEnumerator RemovePlayerAfterSeconds(int seconds, GameObject player)
+	{
+		yield return new WaitForSeconds(seconds);
+
+		Destroy(player);
 	}
 
 	private Transform DecideLeftOrRight(int playerActorNumber)
