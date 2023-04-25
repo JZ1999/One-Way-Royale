@@ -150,9 +150,9 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 
 				player = new Player()
 				{
-					name = PlayerPrefs.GetString("name"),
-					charName = PlayerPrefs.GetString("SelectedChar"),
-					actorNumber = PhotonNetwork.LocalPlayer.ActorNumber
+					name = player.name,
+					charName = player.charName,
+					actorNumber = sender.ActorNumber
 				};
 				Debug.Log(player.actorNumber);
 				//Send message
