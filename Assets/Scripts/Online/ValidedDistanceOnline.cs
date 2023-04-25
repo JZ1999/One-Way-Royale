@@ -9,6 +9,7 @@ public class ValidedDistanceOnline : MonoBehaviour
     [SerializeField]
     private float distance;
 
+    public bool win = false;
     public GameObject winText;
     public GameObject loseText;
 
@@ -23,10 +24,12 @@ public class ValidedDistanceOnline : MonoBehaviour
     // Update is called once per frame
 
 
-    public IEnumerator YouWin()
+    public IEnumerator YouWin(GameObject player)
     {
+        win = true;
         yield return new WaitForSeconds(3);
-        Time.timeScale = 0f;
+        Destroy(player.GetComponent<Rigidbody>());
+        Destroy(player.GetComponent<Collider>());
         winText.SetActive(true);
         endGame();
     }
@@ -34,8 +37,11 @@ public class ValidedDistanceOnline : MonoBehaviour
 
     public void YouLose()
     {
-        loseText.SetActive(true);
-		endGame();
+        if (!win)
+        {
+            loseText.SetActive(true);
+            endGame();
+        }
     }
 
 	public void endGame()
