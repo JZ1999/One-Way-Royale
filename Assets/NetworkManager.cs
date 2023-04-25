@@ -12,6 +12,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 	public override void OnConnectedToMaster()
 	{
 		base.OnConnectedToMaster();
+		PhotonNetwork.ConnectToRegion("us");
 		Debug.LogWarning("Connected " + PhotonNetwork.CloudRegion);
 		PhotonNetwork.AutomaticallySyncScene = true;
 	}

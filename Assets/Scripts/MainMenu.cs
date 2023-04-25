@@ -268,5 +268,10 @@ public class MainMenu : MonoBehaviour
 		onlineUI.SetActive(true);
 		availableRooms.SetActive(false);
 	}
+	public void DeletePlayerPrefs()
+	{
+		PlayerPrefs.DeleteAll();
+		SceneManager.LoadScene("MainMenu");
+	}
 }
 
