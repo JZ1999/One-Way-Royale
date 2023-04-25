@@ -264,9 +264,8 @@ public class GameManager : MonoBehaviour
 
 	public IEnumerator GoToMainMenu()
 	{
-		Debug.Log("el tiempo jode");
 		PhotonNetwork.LeaveRoom();
-		yield return new WaitForSeconds(6);
+		yield return new WaitForSeconds(3);
 		SceneManager.LoadScene(0);
 	}
 

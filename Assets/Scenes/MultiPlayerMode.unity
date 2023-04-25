@@ -990,6 +990,8 @@ MonoBehaviour:
   customPhotonView: {fileID: 0}
   players: []
   spawn: {fileID: 30436423}
+  playerName: {fileID: 595149862434530694, guid: a60214caed26bbe4baa18c90fb843988,
+    type: 3}
   otherPlayerLeft: {fileID: 525886939}
   otherPlayerRight: {fileID: 1195505677}
   playersObjectPool: {fileID: 1280353595}

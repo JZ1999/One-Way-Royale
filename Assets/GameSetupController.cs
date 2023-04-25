@@ -16,6 +16,9 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 	public List<GameObject> players;
 
 	public Transform spawn;
+	public GameObject mainPlayer;
+
+	public GameObject playerName;
 
 	//public GameObject prefab;
 
@@ -140,7 +143,10 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				Transform otherPlayer = DecideLeftOrRight(player.actorNumber);
 
 				GameObject playerObject = Instantiate(Resources.Load(Path.Combine("PhotonPrefabs", player.charName)), otherPlayer.position, otherPlayer.transform.rotation) as GameObject;
-
+				
+				Transform nameTranform = Instantiate(playerName, playerObject.transform).transform;
+				nameTranform.position += Vector3.up * -.5f;
+				nameTranform.GetComponent<TextMeshPro>().text = player.name;
 				players.Add(playerObject);
 				playerObject.transform.parent = otherPlayer;
 				Destroy(playerObject.GetComponent<Rigidbody>());
@@ -196,7 +202,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 						StartCoroutine(RemovePlayerAfterSeconds(2, p));
 						players.Remove(p);
 						if(players.Count == 1) {
-							StartCoroutine(this.GetComponent<ValidedDistanceOnline>().YouWin());
+							StartCoroutine(this.GetComponent<ValidedDistanceOnline>().YouWin(mainPlayer));
 							
 						}
 					}
@@ -266,7 +272,9 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 			actorNumber = PhotonNetwork.LocalPlayer.ActorNumber
 		};
 		GameObject player = Instantiate(Resources.Load(Path.Combine("PhotonPrefabs", playerData.charName)), spawn.position, Quaternion.identity) as GameObject;
-
+		mainPlayer = player;
+		Transform nameTranform = Instantiate(playerName, player.transform).transform;
+		nameTranform.GetComponent<TextMeshPro>().text = playerData.name;
 
 		players.Add(player);
 		player.transform.parent = spawn;
