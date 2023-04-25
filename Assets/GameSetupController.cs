@@ -123,7 +123,6 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 	{
 		if (sender.IsLocal)
 			return;
-		Debug.Log(sender);
 		Player player;
 		switch (type)
 		{
@@ -181,7 +180,6 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				Debug.Log(Instantiate(prefabMud, laneTranform, prefabMud.transform.rotation));
 				break;
 			case "player_lost":
-				Debug.Log(json);
 				player = JsonUtility.FromJson<Player>(json);
 				foreach (GameObject p in players)
 				{
