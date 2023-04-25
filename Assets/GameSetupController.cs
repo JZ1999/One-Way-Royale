@@ -85,7 +85,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 			actorNumber = PhotonNetwork.LocalPlayer.ActorNumber
 		};
 		//Send message
-		customPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
+		SendMessage("spawn", JsonUtility.ToJson(player));
 	}
 
 	public void SendMessage(string message)
@@ -156,13 +156,8 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				};
 				Debug.Log(player.actorNumber);
 				//Send message
-				customPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
+				//customPhotonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn", JsonUtility.ToJson(player));
 				Destroy(playerObject.GetComponent<PlayerMovement>());
-
-				if(otherPlayer == playersObjectPool.transform)
-				{
-					playerObject.SetActive(false);
-				}
 				break;
 			case "jump":
 				player = JsonUtility.FromJson<Player>(json);
@@ -183,22 +178,58 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				laneTranform.z -= 8.45f;
 				Debug.Log(Instantiate(prefabMud, laneTranform, prefabMud.transform.rotation));
 				break;
+			case "player_lost":
+				player = JsonUtility.FromJson<Player>(json);
+				foreach (GameObject p in players)
+				{
+					if (p.GetComponentInParent<PlayerMovement>().playerData.name == player.name)
+					{
+						Destroy(p);
+					}
+				}
+				break;
 		}	
 		
 	}
 
 	private Transform DecideLeftOrRight(int playerActorNumber)
 	{
-		if((PhotonNetwork.LocalPlayer.ActorNumber - playerActorNumber) == 1)
+		switch (PhotonNetwork.LocalPlayer.ActorNumber)
 		{
-			return otherPlayerLeft.transform;
+			case 1:
+				switch (playerActorNumber)
+				{
+					case 3:
+						return otherPlayerLeft.transform;
+					case 2:
+						return otherPlayerRight.transform;
+					default:
+						return otherPlayerRight.transform;
+				}
+			case 2:
+				switch (playerActorNumber)
+				{
+					case 3:
+						return otherPlayerRight.transform;
+					case 1:
+						return otherPlayerLeft.transform;
+					default:
+						break;
+				}
+				break;
+			default:
+				switch (playerActorNumber)
+				{
+					case 1:
+						return otherPlayerLeft.transform;
+					case 2:
+						return otherPlayerRight.transform;
+					default:
+						break;
+				}
+				break;
 		}
-		else if ((PhotonNetwork.LocalPlayer.ActorNumber -  playerActorNumber) == -1)
-		{
-			return otherPlayerRight.transform;
-		}
-
-		return playersObjectPool.transform;
+		return otherPlayerLeft.transform;
 	}
 
 	private void CreatePlayer()
