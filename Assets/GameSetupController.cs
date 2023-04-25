@@ -194,6 +194,11 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 						p.GetComponentInParent<PlayerMovement>().theAM.sfxHit.Play();
 
 						StartCoroutine(RemovePlayerAfterSeconds(2, p));
+						players.Remove(p);
+						if(players.Count == 1) {
+							StartCoroutine(this.GetComponent<ValidedDistanceOnline>().YouWin());
+							
+						}
 					}
 				}
 				break;

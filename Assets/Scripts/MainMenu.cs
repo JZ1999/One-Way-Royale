@@ -156,6 +156,7 @@ public class MainMenu : MonoBehaviour
 					switchUnlockButton.SetActive(false);
 				} else
 				{
+					//switchUnlockButton.GetComponent<Text>().text = "Unlock";
 					switchUnlockButton.SetActive(true);
 					switchGetCoinsButton.SetActive(false);
 				}

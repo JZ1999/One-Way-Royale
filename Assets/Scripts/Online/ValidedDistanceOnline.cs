@@ -21,16 +21,16 @@ public class ValidedDistanceOnline : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+
+
+    public IEnumerator YouWin()
     {
-        distance = gameManager.GetDistance();
-        if (distance >= objective)
-        {
-            Time.timeScale = 0f;
-            winText.SetActive(true);
-			endGame();
-		}
+        yield return new WaitForSeconds(3);
+        Time.timeScale = 0f;
+        winText.SetActive(true);
+        endGame();
     }
+
 
     public void YouLose()
     {
