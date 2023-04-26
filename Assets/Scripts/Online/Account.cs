@@ -32,7 +32,6 @@ public class Account : MonoBehaviour
 
     public void RegisterAccount() {
         PlayerPrefs.SetString("name", nameField.text);
-        PlayerPrefs.SetInt("CoinsCollected", 501);
         api.RegisterTemporaryAccount();
         panel.SetActive(false);
     }

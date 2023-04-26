@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
 using UnityEngine.Advertisements;
+using System.IO;
 
 public class MainMenu : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class MainMenu : MonoBehaviour
 	public GameObject onlineUI;
 	public GameObject availableRooms;
 	public GameObject switchingScreen;
+	public Transform charHolder;
 	public Transform mainCamera;
 	public Transform charSwitchHolder;
 	private Vector3 camTarPosition;
@@ -24,11 +26,12 @@ public class MainMenu : MonoBehaviour
 	public GameObject switchPlayButton;
 	public GameObject switchUnlockButton;
 	public GameObject switchGetCoinsButton;
+	public GameObject coinCounter;
 	public GameObject charLockedImage;
 
 	public int coinsCollected;
-
 	public Text coinsText;
+	public int characterPrice = 20;
 
 	public GameObject adRewardPanel;
 	public Text rewardText;
@@ -62,6 +65,10 @@ public class MainMenu : MonoBehaviour
 			coinsCollected = 0;
 		}
 
+		coinCounter.GetComponent<TMPro.TextMeshProUGUI>().text = coinsCollected.ToString();
+
+		MainScreen();
+
 	}
 
     void Update()
@@ -84,18 +91,36 @@ public class MainMenu : MonoBehaviour
 #endif
 	}
 
+    private void Awake()
+    {
+		int counter = 0;
+        foreach(GameObject t in theChars)
+        {
+			GameObject character = Instantiate(t, charSwitchHolder);
+			character.transform.position += Vector3.left * counter;
+			counter+=2;
+        }
+    }
+
     #endregion
 
-	public void PlayGame()
+    public void PlayGame()
 	{
 		SceneManager.LoadScene(levelToLoad);
 	}
 	public void MainScreen()
     {
+		string charName = PlayerPrefs.GetString("SelectedChar");
+		foreach (Transform child in charHolder)
+		{
+			Destroy(child.gameObject);
+		}
+		Debug.Log(Path.Combine("PhotonPrefabs", charName));
+		Instantiate(Resources.Load(Path.Combine("PhotonPrefabs", charName)), charHolder.transform);
 		selectMode.SetActive(true);
 		switchingScreen.SetActive(false);
 
-		camTarPosition = mainCamera.position - new Vector3(camTarPosition.x, charSwitchHolder.position.y);
+		camTarPosition = new Vector3(charHolder.position.x, charHolder.position.y, 3.1f);
 		currentChar = 0;
 	}
 
@@ -150,7 +175,7 @@ public class MainMenu : MonoBehaviour
 
 				charLockedImage.SetActive(true);
 
-				if (coinsCollected < 500)
+				if (coinsCollected < characterPrice)
 				{
 					switchGetCoinsButton.SetActive(true);
 					switchUnlockButton.SetActive(false);
@@ -178,7 +203,7 @@ public class MainMenu : MonoBehaviour
 
 	public void UnlockCharacter()
 	{
-		coinsCollected -= 500;
+		coinsCollected -= characterPrice;
 
 		PlayerPrefs.SetInt(theChars[currentChar].name, 1);
 		PlayerPrefs.SetInt("CoinsCollected", coinsCollected);
@@ -190,7 +215,7 @@ public class MainMenu : MonoBehaviour
 	{
 		PlayerPrefs.SetString("SelectedChar", theChars[currentChar].name);
 
-		PlayGame();
+		MainScreen();
 	}
 
 	public void GetCoins()
