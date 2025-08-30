@@ -195,7 +195,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 						rb.constraints = RigidbodyConstraints.None;
 
 						float rand_x = Random.Range(GameManager.gameSpeed / 2, -GameManager.gameSpeed / 2);
-						rb.velocity = new Vector3(rand_x, 2.5f, -GameManager.gameSpeed / 2f);
+						rb.linearVelocity = new Vector3(rand_x, 2.5f, -GameManager.gameSpeed / 2f);
 
 						p.GetComponentInParent<PlayerMovement>().theAM.sfxHit.Play();
 

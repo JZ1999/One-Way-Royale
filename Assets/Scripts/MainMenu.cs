@@ -27,6 +27,8 @@ public class MainMenu : MonoBehaviour
 	public GameObject switchUnlockButton;
 	public GameObject switchGetCoinsButton;
 	public GameObject coinCounter;
+	public GameObject coinCounterHolder;
+	public GameObject profileButton;
 	public GameObject charLockedImage;
 
 	public int coinsCollected;
@@ -65,8 +67,6 @@ public class MainMenu : MonoBehaviour
 			coinsCollected = 0;
 		}
 
-		coinCounter.GetComponent<TMPro.TextMeshProUGUI>().text = coinsCollected.ToString();
-
 		MainScreen();
 
 	}
@@ -75,7 +75,7 @@ public class MainMenu : MonoBehaviour
     {
 		mainCamera.position = Vector3.Lerp(mainCamera.position, camTarPosition, cameraSpeed * Time.deltaTime);
 
-		coinsText.text = "Coins: " + coinsCollected;
+		coinsText.text = "Cost: 20";
 
 #if UNITY_EDITOR
 
@@ -110,6 +110,11 @@ public class MainMenu : MonoBehaviour
 	}
 	public void MainScreen()
     {
+		coinCounter.GetComponent<TMPro.TextMeshProUGUI>().text = coinsCollected.ToString();
+
+		coinCounterHolder.SetActive(true);
+		profileButton.SetActive(true);
+
 		string charName = PlayerPrefs.GetString("SelectedChar");
 		foreach (Transform child in charHolder)
 		{
@@ -127,11 +132,14 @@ public class MainMenu : MonoBehaviour
 
 	public void BackToSelectMode()
     {
+		profileButton.SetActive(true);
 		onlineUI.SetActive(false);
 		selectMode.SetActive(true);
 	}
 	public void ChooseChar()
 	{
+		profileButton.SetActive(false);
+
 		selectMode.SetActive(false);
 		switchingScreen.SetActive(true);
 
@@ -208,6 +216,8 @@ public class MainMenu : MonoBehaviour
 		PlayerPrefs.SetInt(theChars[currentChar].name, 1);
 		PlayerPrefs.SetInt("CoinsCollected", coinsCollected);
 
+		coinCounter.GetComponent<TMPro.TextMeshProUGUI>().text = coinsCollected.ToString();
+
 		UnlockedCheck();
 	}
 
@@ -220,55 +230,10 @@ public class MainMenu : MonoBehaviour
 
 	public void GetCoins()
 	{
-		ShowRewardedVideo();
+		
 	}
 
-	public bool IsVideoAdLoaded()
-	{
-		return Advertisement.isInitialized && Advertisement.IsReady(videoAdZone);
-	}
-
-	void ShowRewardedVideo()
-	{
-		if(IsVideoAdLoaded())
-		{
-			ShowOptions options = new ShowOptions();
-			//options.resultCallback = HandleShowResult;
-
-			//TODO check if all this code regarding ads can be deleted
-
-			Advertisement.Show(videoAdZone, options);
-		}
-		else
-		{
-			Debug.LogWarning("Ad video not loaded yet.");
-		}
-	}
-
-	void HandleShowResult(ShowResult result)
-	{
-		if (result == ShowResult.Finished)
-		{
-			Debug.Log("Video completed - Offer a reward to the player");
-			// Reward your player here.
-			coinsCollected += 100;
-			PlayerPrefs.SetInt("CoinsCollected", coinsCollected);
-			rewardText.text = "Thanks for watching. You receive 100 coins!";
-		}
-		else if (result == ShowResult.Skipped)
-		{
-			Debug.LogWarning("Video was skipped - Do NOT reward the player");
-			rewardText.text = "You didn't watch the ad. Watch another to earn coins";
-		}
-		else if (result == ShowResult.Failed)
-		{
-			Debug.LogError("Video failed to show");
-			rewardText.text = "Unable to show ad. Please try again.";
-		}
-
-		adRewardPanel.SetActive(true);
-	}
-
+	
 	public void CloseAdPanel()
 	{
 		adRewardPanel.SetActive(false);
@@ -276,12 +241,14 @@ public class MainMenu : MonoBehaviour
 
 	public void OnlineUI()
     {
+		profileButton.SetActive(false);
 		selectMode.SetActive(false);
 		onlineUI.SetActive(true);
 	}
 
 	public void SearchRoomUI()
     {
+		profileButton.SetActive(false);
 		PhotonNetwork.JoinLobby();
 		onlineUI.SetActive(false);
 		availableRooms.SetActive(true);
@@ -289,6 +256,7 @@ public class MainMenu : MonoBehaviour
 
 	public void BackToUIOnline()
 	{
+		profileButton.SetActive(false);
 		//PhotonNetwork.JoinLobby(); 
 		onlineUI.SetActive(true);
 		availableRooms.SetActive(false);

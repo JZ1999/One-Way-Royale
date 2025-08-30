@@ -15,13 +15,13 @@ public class LeaderBoard : MonoBehaviour
 
 	private LeaderboardEntriesModel entries;
 
-    async void Awake()
+    async void Start()
     {
 		entries = await api.GetLeaderboard();
 
-		for (int i = 0; (i < entries.results.Length) && i != 10; i++)
+        for (int i = 0; (i < entries.results.Length) && i != 10; i++)
 		{
-			GameObject instance = Instantiate(leaderboardEntry, leaderboard);
+            GameObject instance = Instantiate(leaderboardEntry, leaderboard);
 
 			// Should only have 2 children
 			instance.GetComponentsInChildren<TMP_Text>()[0].text = entries.results[i].name;
