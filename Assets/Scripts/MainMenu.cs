@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
 	public string levelToLoad;
 	public GameObject selectMode;
 	public GameObject onlineUI;
+	public GameObject masterUI;
 	public GameObject availableRooms;
 	public GameObject switchingScreen;
 	public Transform charHolder;
@@ -132,6 +133,7 @@ public class MainMenu : MonoBehaviour
 
 	public void BackToSelectMode()
     {
+		Debug.Log("BackToSelectMode");
 		profileButton.SetActive(true);
 		onlineUI.SetActive(false);
 		selectMode.SetActive(true);
@@ -260,6 +262,7 @@ public class MainMenu : MonoBehaviour
 		//PhotonNetwork.JoinLobby(); 
 		onlineUI.SetActive(true);
 		availableRooms.SetActive(false);
+		masterUI.SetActive(false);
 	}
 	public void DeletePlayerPrefs()
 	{
