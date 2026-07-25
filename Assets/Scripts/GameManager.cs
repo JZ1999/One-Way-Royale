@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
 		_canMove = canMove;
 		_gameSpeed = GameManager.gameSpeed;
 
-		if (PhotonNetwork.CurrentRoom?.PlayerCount == null && !gameStarted && Input.GetMouseButtonDown(0))
+		if (!PhotonNetwork.InRoom && !gameStarted && Input.GetMouseButtonDown(0))
 		{
 			gameStarted = true;
 			canMove = true;
@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
 
 		collectedCoin = false;
 
-		if (dead && !PhotonNetwork.IsConnected)
+		if (dead && !PhotonNetwork.InRoom)
 		{
 			
 			if (deathScreenDelay <= 0)
@@ -225,13 +225,13 @@ public class GameManager : MonoBehaviour
 	}
 
 	static public void ApplyDebuff(string nameDebuff) {
-		if(nameDebuff != "none")
+		if(nameDebuff != "none" && PhotonNetwork.InRoom)
 		{
 			int index = UnityEngine.Random.Range(0, playersOnline.Length);
 			GameObject focusPlayer = playersOnline[index];
 
 #if UNITY_EDITOR
-			if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+			if (PhotonNetwork.CurrentRoom != null && PhotonNetwork.CurrentRoom.PlayerCount == 1)
 				FindObjectOfType<GameManager>().ReceivedDebuff(nameDebuff);
 #endif
 
@@ -264,7 +264,8 @@ public class GameManager : MonoBehaviour
 
 	public IEnumerator GoToMainMenu()
 	{
-		PhotonNetwork.LeaveRoom();
+		if (PhotonNetwork.InRoom)
+			PhotonNetwork.LeaveRoom();
 		yield return new WaitForSeconds(3);
 		SceneManager.LoadScene(0);
 	}

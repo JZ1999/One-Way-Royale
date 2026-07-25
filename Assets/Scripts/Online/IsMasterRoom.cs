@@ -23,6 +23,7 @@ public class IsMasterRoom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        textObject.text = PhotonNetwork.CountOfPlayers + "/" + " 2";
+        if (PhotonNetwork.CurrentRoom != null)
+            textObject.text = PhotonNetwork.CurrentRoom.PlayerCount + "/" + PhotonNetwork.CurrentRoom.MaxPlayers;
     }
 }

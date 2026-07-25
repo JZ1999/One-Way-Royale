@@ -23,8 +23,14 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
 	// Start is called before the first frame update
 	void Start()
     {
-		PhotonNetwork.Disconnect();
-		PhotonNetwork.ConnectUsingSettings();		
+		// NetworkManager already connects on menu load; forcing a Disconnect()
+		// immediately followed by ConnectUsingSettings() here raced with that
+		// connection tearing down and caused ObjectDisposedException crashes on
+		// the socket's receive thread. Only (re)connect if we're not already.
+		if (!PhotonNetwork.IsConnectedAndReady)
+		{
+			PhotonNetwork.ConnectUsingSettings();
+		}
 		quickStartButton.GetComponent<Button>().interactable = PhotonNetwork.IsConnectedAndReady;
 
 	}
@@ -59,7 +65,16 @@ public class QuickStartLobbyController : MonoBehaviourPunCallbacks
     {
 		UIOnline.SetActive(false);
 		masterObject.SetActive(true);
-		PhotonNetwork.JoinRandomRoom();
+
+		// Atomic join-or-create: avoids the race where two clients that both
+		// search for a room at nearly the same time (eg. Multiplayer Play Mode's
+		// Main + Clone starting together) find none and each create their own room.
+		int randomRoomNumber = Random.Range(0, 10_000);
+		string masterName = PlayerPrefs.GetString("name");
+		string nameRoom = masterName + "@" + randomRoomNumber;
+		RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte) roomSize };
+
+		PhotonNetwork.JoinRandomOrCreateRoom(roomName: nameRoom, roomOptions: roomOptions);
 	}
 
 	public void QuickCancel()

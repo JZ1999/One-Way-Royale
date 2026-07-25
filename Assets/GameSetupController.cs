@@ -1,11 +1,13 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using System.Collections;
 
-public class GameSetupController : MonoBehaviourPun, IPunObservable
+public class GameSetupController : MonoBehaviourPunCallbacks, IPunObservable
 {
 	[SerializeField]
 	[Range(3, 15)]
@@ -53,6 +55,16 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
     {
 		readyTimer = _readyTimer;
 		customPhotonView.RPC("Loaded", RpcTarget.All, PhotonNetwork.LocalPlayer, true);
+	}
+
+	// If Photon drops mid-match (eg. socket errors, connection loss), don't leave the
+	// match frozen with a dead connection - bail out to the menu, which reconnects on
+	// its own via NetworkManager.Start().
+	public override void OnDisconnected(DisconnectCause cause)
+	{
+		base.OnDisconnected(cause);
+		Debug.LogWarning("Photon disconnected during match (" + cause + "). Returning to main menu.");
+		SceneManager.LoadScene(0);
 	}
 
     void Update()
@@ -134,7 +146,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				player = JsonUtility.FromJson<Player>(json);
 				foreach (GameObject p in players)
 				{
-					if (p.GetComponentInParent<PlayerMovement>().playerData.name == player.name)
+					if (p.GetComponentInParent<PlayerMovement>().playerData.actorNumber == player.actorNumber)
 					{
 						return;
 					}
@@ -169,7 +181,7 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 			case "jump":
 				player = JsonUtility.FromJson<Player>(json);
 				foreach(GameObject p in players) {
-					if(p.GetComponentInParent<PlayerMovement>().playerData.name == player.name)
+					if(p.GetComponentInParent<PlayerMovement>().playerData.actorNumber == player.actorNumber)
 					{
 						p.GetComponentInParent<PlayerMovement>().setJumpOffline();
 					}
@@ -187,9 +199,12 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 				break;
 			case "player_lost":
 				player = JsonUtility.FromJson<Player>(json);
-				foreach (GameObject p in players)
+				// Iterate backwards with RemoveAt instead of foreach + Remove:
+				// mutating a List while a foreach enumerates it throws InvalidOperationException.
+				for (int i = players.Count - 1; i >= 0; i--)
 				{
-					if (p.GetComponentInParent<PlayerMovement>().playerData.name == player.name)
+					GameObject p = players[i];
+					if (p.GetComponentInParent<PlayerMovement>().playerData.actorNumber == player.actorNumber)
 					{
 						Rigidbody rb = p.AddComponent<Rigidbody>();
 						rb.constraints = RigidbodyConstraints.None;
@@ -200,10 +215,10 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 						p.GetComponentInParent<PlayerMovement>().theAM.sfxHit.Play();
 
 						StartCoroutine(RemovePlayerAfterSeconds(2, p));
-						players.Remove(p);
+						players.RemoveAt(i);
 						if(players.Count == 1) {
 							StartCoroutine(this.GetComponent<ValidedDistanceOnline>().YouWin(mainPlayer));
-							
+
 						}
 					}
 				}
@@ -280,7 +295,12 @@ public class GameSetupController : MonoBehaviourPun, IPunObservable
 		player.transform.parent = spawn;
 		Destroy(player.GetComponent<Rigidbody>());
 
-		player.GetComponentInParent<PlayerMovement>().playerData = playerData;
+		PlayerMovement localPlayerMovement = player.GetComponentInParent<PlayerMovement>();
+		localPlayerMovement.playerData = playerData;
+		// The scene's PlayerMovement rigs don't all have `gameSetup` wired in the
+		// Inspector; assign it here so whichever rig ends up being the local player
+		// is always correctly linked, regardless of scene wiring.
+		localPlayerMovement.gameSetup = this;
 
 	}
 

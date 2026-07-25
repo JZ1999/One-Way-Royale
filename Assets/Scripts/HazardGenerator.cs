@@ -21,7 +21,7 @@ public class HazardGenerator : MonoBehaviour
 	void Start()
     {
 		timer_cp = timer;
-		photonView = gameSetup.GetComponent<PhotonView>();
+		photonView = gameSetup ? gameSetup.GetComponent<PhotonView>() : null;
 	}
 
     void Update()
@@ -34,14 +34,16 @@ public class HazardGenerator : MonoBehaviour
 			{
 				int random = Random.Range(0, hazards.Length);
 				InstantiateObject(hazards[random]);
-				Hazard hazard = new Hazard()
+
+				if (photonView)
 				{
-					id = random,
-					position = rightLaneGenerator.position
-					
-				};
-				if(photonView)
+					Hazard hazard = new Hazard()
+					{
+						id = random,
+						position = rightLaneGenerator.position
+					};
 					photonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "spawn_hazard", JsonUtility.ToJson(hazard));
+				}
 
 				timer = Random.Range(timer_cp * 0.75f, timer_cp * 1.25f);
 
@@ -53,7 +55,7 @@ public class HazardGenerator : MonoBehaviour
 	public void InstantiateObject(GameObject obj)
     {
 		Instantiate(obj, transform.position, obj.transform.rotation);
-		if(obj.CompareTag("Mud"))
+		if(obj.CompareTag("Mud") && photonView)
 			photonView.RPC("SendChat", RpcTarget.All, PhotonNetwork.LocalPlayer, "mud_debuff", "");
 	}
 

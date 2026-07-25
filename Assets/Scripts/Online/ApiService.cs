@@ -8,7 +8,7 @@ using System.Net.Http.Headers;
 
 public class ApiService
 {
-    public string url = "http://one-way-game.herokuapp.com/api/v1/";
+    public string url = "https://one-way-game.herokuapp.com/api/v1/";
     public static HttpClient client = new HttpClient();
 
 
@@ -50,7 +50,9 @@ public class ApiService
 	}
 
 
-	public void RegisterScore()
+	// async void (not void + .Result): WebGL is single-threaded, so blocking on
+	// Task.Result to wait for the response deadlocks the browser tab.
+	public async void RegisterScore()
     {
 
         LeadetBoardModel LeaderBoard = new LeadetBoardModel()
@@ -77,9 +79,8 @@ public class ApiService
 
 		Debug.LogWarning(String.Format("Request: {0} {1} -> {2}", "POST", url + "game/leaderboard/offline/", jsonString));
 
-		var task = client.SendAsync(requestMessage);
-        var response = task.Result;
+		HttpResponseMessage response = await client.SendAsync(requestMessage);
         response.EnsureSuccessStatusCode();
-        _ = response.Content.ReadAsStringAsync().Result;
+        _ = await response.Content.ReadAsStringAsync();
     }
 }

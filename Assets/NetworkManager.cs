@@ -17,6 +17,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 		PhotonNetwork.AutomaticallySyncScene = true;
 	}
 
+	// Self-heal if Photon drops while sitting in the menu (eg. socket errors) instead
+	// of leaving "Play Online" stuck unusable until the player reloads the scene.
+	public override void OnDisconnected(Photon.Realtime.DisconnectCause cause)
+	{
+		base.OnDisconnected(cause);
+		Debug.LogWarning("Photon disconnected (" + cause + "). Reconnecting.");
+		PhotonNetwork.ConnectUsingSettings();
+	}
+
 	// Update is called once per frame
 	void Update()
 	{

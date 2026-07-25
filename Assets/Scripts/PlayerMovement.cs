@@ -50,6 +50,13 @@ public class PlayerMovement : MonoBehaviour
 		startPosition = transform.position;
 		startRotation = transform.rotation;
 		timeForUsePowerUp = timeForUsePowerUpSaved;
+
+		// In multiplayer, GameSetupController.CreatePlayer() sets isMe for the local player.
+		// No GameSetupController exists in single-player, so it must be set here instead.
+		if (gameSetup == null)
+		{
+			playerData.isMe = true;
+		}
 	}
 
     void Update()
@@ -57,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 		onGround = Physics.OverlapSphere(modelHolder.position, 0.2f, whatIsGround).Length > 0;
 
 #if UNITY_EDITOR
-		if (Input.GetMouseButton(1))
+		if (BarOnlineManager != null && Input.GetMouseButton(1))
 		{
 			timeForUsePowerUp -= Time.deltaTime;
 			if(timeForUsePowerUp <= 0)
@@ -91,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if (other.CompareTag("Hazards"))
 			{
-				if(PhotonNetwork.IsConnected)
+				if(PhotonNetwork.InRoom)
                 {
 					Player player = new Player()
 					{
@@ -104,8 +111,10 @@ public class PlayerMovement : MonoBehaviour
 				}
 				GameManager.HazardHit();
 #if !UNITY_EDITOR
-				
-				api.RegisterScore();
+				if (!PhotonNetwork.InRoom)
+				{
+					api.RegisterScore();
+				}
 #endif
 
 				rb.constraints = RigidbodyConstraints.None;
@@ -178,8 +187,10 @@ public class PlayerMovement : MonoBehaviour
     {
 		if (GameManager.canMove && onGround)
 		{
-			rb.linearVelocity = new Vector3(0, jumpForce, 0);
-			theAM.sfxJump.Play();
+			setJumpOffline();
+
+			if (gameSetup == null)
+				return;
 
 			Player player = new Player()
 			{
