@@ -1,86 +1,96 @@
-﻿using System.Net.Http;
 using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Threading.Tasks;
 using System.Text;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
 
 public class ApiService
 {
     public string url = "https://one-way-game.herokuapp.com/api/v1/";
-    public static HttpClient client = new HttpClient();
-
 
     public void RegisterTemporaryAccount()
     {
-           AccountModel Acc = new AccountModel() { 
+        AccountModel Acc = new AccountModel() {
             name = PlayerPrefs.GetString("name"),
             uuid = PlayerPrefs.GetString("uuid"),
             device = SystemInfo.deviceType.ToString(),
-           };
+        };
         _ = RegisterRequest(Acc);
     }
 
-    private async Task<Uri> RegisterRequest(AccountModel Acc)
+    // Uses UnityWebRequest, not System.Net.Http.HttpClient: on WebGL, HttpClient's HTTPS path
+    // goes through Mono's TLS provider init, which hits an IL2CPP generic-sharing bug
+    // (Marshal.PtrToStructure<T>) that crashes with "function signature mismatch" under
+    // Minimal stripping. UnityWebRequest is the platform's supported networking API and
+    // avoids that path entirely.
+    private async Task RegisterRequest(AccountModel Acc)
     {
-        
         var json = JsonUtility.ToJson(Acc);
-        var jsonString = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
 
-		Debug.LogWarning(String.Format("Request: {0} {1} -> {2}", "POST", url + "account/temporary", jsonString));
+        Debug.LogWarning(String.Format("Request: {0} {1} -> {2}", "POST", url + "account/temporary", json));
 
-		HttpResponseMessage response = await client.PostAsync(url +
-            "account/temporary", jsonString);
-        response.EnsureSuccessStatusCode();
+        using (var request = new UnityWebRequest(url + "account/temporary", "POST"))
+        {
+            request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
 
+            var op = request.SendWebRequest();
+            while (!op.isDone) await Task.Yield();
 
-        // return URI of the created resource.
-        return response.Headers.Location;
+            if (request.result != UnityWebRequest.Result.Success)
+                Debug.LogError($"RegisterRequest failed: {request.error}");
+        }
     }
 
-	public async Task<LeaderboardEntriesModel> GetLeaderboard()
-	{
-		Debug.LogWarning(String.Format("Request: {0} {1}", "GET", url + "game/leaderboard/offline"));
-
-		string response = await client.GetStringAsync(url +
-			"game/leaderboard/offline");
-		// return URI of the created resource.
-		return JsonUtility.FromJson<LeaderboardEntriesModel>(response);
-	}
-
-
-	// async void (not void + .Result): WebGL is single-threaded, so blocking on
-	// Task.Result to wait for the response deadlocks the browser tab.
-	public async void RegisterScore()
+    public async Task<LeaderboardEntriesModel> GetLeaderboard()
     {
+        Debug.LogWarning(String.Format("Request: {0} {1}", "GET", url + "game/leaderboard/offline"));
 
+        using (var request = UnityWebRequest.Get(url + "game/leaderboard/offline"))
+        {
+            var op = request.SendWebRequest();
+            while (!op.isDone) await Task.Yield();
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError($"GetLeaderboard failed: {request.error}");
+                return null;
+            }
+            return JsonUtility.FromJson<LeaderboardEntriesModel>(request.downloadHandler.text);
+        }
+    }
+
+    // async void (not void + .Result): WebGL is single-threaded, so blocking on
+    // Task.Result to wait for the response deadlocks the browser tab.
+    public async void RegisterScore()
+    {
         LeadetBoardModel LeaderBoard = new LeadetBoardModel()
         {
             name = PlayerPrefs.GetString("name"),
             account_uuid = PlayerPrefs.GetString("uuid"),
             distance = PlayerPrefs.GetString("distance"),
-
         };
 
-        client.DefaultRequestHeaders.Clear();
-        client.DefaultRequestHeaders.ConnectionClose = true;
-
         var json = JsonUtility.ToJson(LeaderBoard);
-        var jsonString = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
 
         var authenticationString = $"{PlayerPrefs.GetString("uuid")}:{PlayerPrefs.GetString("uuid")}";
-        var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
+        var base64EncodedAuthenticationString = Convert.ToBase64String(Encoding.ASCII.GetBytes(authenticationString));
 
-        var requestMessage = new HttpRequestMessage(HttpMethod.Post, url +
-            "game/leaderboard/offline/");
-        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64EncodedAuthenticationString);
-        requestMessage.Content = jsonString;
+        Debug.LogWarning(String.Format("Request: {0} {1} -> {2}", "POST", url + "game/leaderboard/offline/", json));
 
-		Debug.LogWarning(String.Format("Request: {0} {1} -> {2}", "POST", url + "game/leaderboard/offline/", jsonString));
+        using (var request = new UnityWebRequest(url + "game/leaderboard/offline/", "POST"))
+        {
+            request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", "Basic " + base64EncodedAuthenticationString);
 
-		HttpResponseMessage response = await client.SendAsync(requestMessage);
-        response.EnsureSuccessStatusCode();
-        _ = await response.Content.ReadAsStringAsync();
+            var op = request.SendWebRequest();
+            while (!op.isDone) await Task.Yield();
+
+            if (request.result != UnityWebRequest.Result.Success)
+                Debug.LogError($"RegisterScore failed: {request.error}");
+        }
     }
 }

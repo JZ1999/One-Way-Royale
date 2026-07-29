@@ -1,0 +1,10 @@
+<linker>
+  <!-- Preserves our own code's Invoker/RPC methods (Photon [PunRPC] methods, any remaining
+       Inspector-wired UnityEvents) under Minimal stripping on WebGL. Do NOT also preserve
+       UnityEngine.UI/Unity.TextMeshPro/Photon*: doing so previously turned the WebGL crash
+       from a catchable "function signature mismatch" into an unrecoverable infinite-
+       recursion hang (RangeError: Maximum call stack size exceeded) on the loading screen -
+       those assemblies apparently contain latent recursive code that Minimal stripping
+       normally removes as unreachable. See webgl_portrait_and_wasm_crash memory. -->
+  <assembly fullname="Assembly-CSharp" preserve="all" />
+</linker>

@@ -28,6 +28,12 @@ public class Account : MonoBehaviour
             panel.SetActive(true);
         if (!PlayerPrefs.HasKey("uuid"))
             PlayerPrefs.SetString("uuid", guid);
+
+        // Wired here instead of as an Inspector-persistent UnityEvent listener: IL2CPP's
+        // stripped WebGL builds crashed ("function signature mismatch") invoking a
+        // parameterless listener off TMP_InputField.onEndEdit (a UnityEvent<string>) -
+        // a runtime AddListener call doesn't go through that Invoker mechanism.
+        nameField.onEndEdit.AddListener(_ => RegisterAccount());
     }
 
     public void RegisterAccount() {
